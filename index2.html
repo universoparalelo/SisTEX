@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Formulario</title>
+  <link rel="stylesheet" type="text/css" href="styles.css">
+  <script src="script.js"></script>
+</head>
+<body>
+  <form id="formulario" action="#" method="post">
+    <div id="seccion1" class="seccion active">
+      <h2>Sección 1: Datos personales</h2>
+      <label for="nombre">Nombre:</label>
+      <input type="text" id="nombre" required><br>
+
+      <label for="apellido">Apellido:</label>
+      <input type="text" id="apellido" required><br>
+
+      <label for="direccion">Dirección:</label>
+      <input type="text" id="direccion" required><br>
+
+      <label for="provincia">Provincia:</label>
+      <select id="provincia" required>
+        <option value="">Seleccionar</option>
+        <option value="Chaco">Chaco</option>
+        <option value="Santa Fe">Santa Fe</option>
+        <option value="Corrientes">Corrientes</option>
+      </select><br>
+
+      <label for="localidad">Localidad:</label>
+      <input type="text" id="localidad" required><br>
+
+      <label for="telefono">Número de teléfono:</label>
+      <input type="text" id="telefono" required><br>
+
+      <div class="botones">
+        <button id="btnSiguiente1" type="button">Siguiente</button>
+      </div>
+    </div>
+
+    <div id="seccion2" class="seccion">
+      <h2>Sección 2: Datos de la muestra</h2>
+      <label for="nombreMuestra">Nombre de la muestra:</label>
+      <input type="text" id="nombreMuestra" required><br>
+
+      <label for="producto">Producto:</label>
+      <select id="producto" required>
+        <option value="">Seleccionar</option>
+        <option value="Cerveza">Cerveza</option>
+        <option value="Harinas">Harinas</option>
+        <option value="Pastas">Pastas</option>
+        <option value="Vegetales">Vegetales</option>
+        <option value="Carnes">Carnes</option>
+      </select><br>
+
+      <label for="estilos">Estilos:</label>
+      <input type="text" id="estilos"><br>
+
+      <label for="lote">Lote:</label>
+      <input type="text" id="lote">
+      <label for="checkboxLote">No tengo lote</label>
+      <input type="checkbox" id="checkboxLote"><br>
+
+      <label for="fechaElaboracion">Fecha de elaboración:</label>
+      <input type="date" id="fechaElaboracion" required><br>
+
+      <label for="fechaVencimiento">Fecha de vencimiento:</label>
+      <input type="date" id="fechaVencimiento" required><br>
+
+      <div class="botones">
+        <button id="btnAnterior2" type="button">Anterior</button>
+        <button id="btnSiguiente2" type="button">Siguiente</button>
+      </div>
+    </div>
+
+    <div id="seccion3" class="seccion">
+      <h2>Sección 3: Análisis químicos que requiere</h2>
+      <label for="analisisFisicoquimico">Análisis Fisicoquímico:</label>
+      <input type="checkbox" id="analisisFisicoquimico"><br>
+      <div id="datosAnalisisFisicoquimico" hidden>
+        <label for="pdfAnalisisFisicoquimico">PDF:</label>
+        <input type="file" id="pdfAnalisisFisicoquimico">
+        <label for="analisisTexto">Análisis que requiere:</label>
+        <input type="text" id="analisisTexto">
+      </div>
+
+      <label for="analisisMicrobiologico">Análisis Microbiológico:</label>
+      <input type="checkbox" id="analisisMicrobiologico"><br>
+      <div id="datosAnalisisMicrobiologico" hidden>
+        <label>Opciones:</label><br>
+        
+          <input type="checkbox" id="aerobiasMesofilas">
+          <label for="aerobiasMesofilas">Aerobias Mesófilas $1500</label><br>
+    
+          <input type="checkbox" id="coliformesEcoli">
+          <label for="coliformesEcoli">Coliformes Totales/E.Coli $2000</label><br>
+        
+          <input type="checkbox" id="salmonella">
+          <label for="salmonella">Salmonella $2500</label><br>
+        
+          <input type="checkbox" id="pseudomonaAeruginosa">
+          <label for="pseudomonaAeruginosa">Pseudomona aeruginosa $3000</label><br>
+        
+          <input type="checkbox" id="bacteriasLacticas">
+          <label for="bacteriasLacticas">Bacterias Lácticas $2500</label><br>
+        
+          <input type="checkbox" id="enterobacterias">
+          <label for="enterobacterias">Enterobacterias $2000</label><br>
+        
+          <input type="checkbox" id="staphylococcusAureus">
+          <label for="staphylococcusAureus">Staphylococcus aureus $2500</label><br>
+        
+          <input type="checkbox" id="hongosLevaduras">
+          <label for="hongosLevaduras">Hongos y Levaduras $2000</label><br>
+        
+      </div>
+
+      <label for="determinacionNutricional">Determinación de información nutricional:</label>
+      <input type="checkbox" id="determinacionNutricional"><br>
+
+      <label for="azucaresTotales">Azúcares Totales:</label>
+      <input type="checkbox" id="azucaresTotales"><br>
+
+      <div id="precioTotal">
+        <label for="precioTotalCampo">Precio total:</label>
+        <input type="text" id="precioTotalCampo" readonly>
+      </div><br>
+
+      <div class="botones">
+        <button id="btnAnterior3" type="button">Anterior</button>
+        <button id="btnSiguiente3" type="button">Siguiente</button>
+      </div>
+    </div>
+
+    <div id="seccion4" class="seccion">
+      <h2>Sección 4: Información adicional sobre la solicitud de muestra</h2>
+      <label>Razón por la cual necesita realizar los análisis:</label>
+      <div>
+        <input type="radio" name="razon" value="Inscripción RNPA">
+        <label for="razon">Inscripción RNPA</label>
+      </div>
+      <div>
+        <input type="radio" name="razon" value="Re-inscripción RNPA">
+        <label for="razon">Re-inscripción RNPA</label>
+      </div>
+      <div>
+        <input type="radio" name="razon" value="Control de calidad de la empresa">
+        <label for="razon">Control de calidad de la empresa</label>
+      </div>
+      <div>
+        <input type="radio" name="razon" value="Otro">
+        <label for="razon">Otro:</label>
+        <input type="text" id="otroRazon" disabled>
+      </div>
+
+      <label for="codigoAlimentario">Código alimentario argentino:</label>
+      <input type="text" id="codigoAlimentario" required><br>
+
+      <label>Temperatura de almacenamiento:</label>
+      <div>
+        <input type="radio" name="temperatura" value="Temperatura ambiente">
+        <label for="temperatura">Temperatura ambiente</label>
+      </div>
+      <div>
+        <input type="radio" name="temperatura" value="Refrigerada">
+        <label for="temperatura">Refrigerada</label>
+      </div>
+      <div>
+        <input type="radio" name="temperatura" value="Congelada">
+        <label for="temperatura">Congelada</label>
+      </div>
+
+      <label for="lapsoAptitud">Lapso de aptitud (días):</label>
+      <input type="text" id="lapsoAptitud" required>
+
+      <div class="botones">
+        <button id="btnAnterior4" type="button">Anterior</button>
+        <button id="btnSiguiente4" type="button">Siguiente</button>
+      </div>
+    </div>
+
+    <div id="seccion5" class="seccion">
+      <h2>Sección 5: Realizar pago</h2>
+      <img src="imagen.jpeg" alt="Imagen con Datos de la cuenta corriente a enviar el dinero"><br>
+
+      <label for="comprobante">Cargar comprobante de pago:</label>
+      <input type="file" id="comprobante" required>
+
+      <div class="botones">
+        <button id="btnAnterior5" type="button">Anterior</button>
+        <button id="btnEnviar" type="submit">Enviar</button>
+      </div>
+    </div>
+  </form>
+
+</body>
+</html>
