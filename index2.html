@@ -2,8 +2,8 @@
 <html>
 <head>
   <title>Formulario</title>
-  <link rel="stylesheet" type="text/css" href="styles.css">
-  <script src="script.js"></script>
+  <link rel="stylesheet" href="styles.css">
+  <script src="script2.js"></script>
 </head>
 <body>
   <form id="formulario" action="#" method="post">
@@ -43,7 +43,7 @@
       <input type="text" id="nombreMuestra" required><br>
 
       <label for="producto">Producto:</label>
-      <select id="producto" required>
+      <select id="producto" onchange="mostrarBloque_estilos()" required>
         <option value="">Seleccionar</option>
         <option value="Cerveza">Cerveza</option>
         <option value="Harinas">Harinas</option>
@@ -52,13 +52,15 @@
         <option value="Carnes">Carnes</option>
       </select><br>
 
-      <label for="estilos">Estilos:</label>
-      <input type="text" id="estilos"><br>
+      <div id="bloque_estilos" hidden>
+        <label for="estilos">Estilos:</label>
+        <input type="text" id="estilos"><br>
+      </div>
 
       <label for="lote">Lote:</label>
       <input type="text" id="lote">
       <label for="checkboxLote">No tengo lote</label>
-      <input type="checkbox" id="checkboxLote"><br>
+      <input type="checkbox" id="checkboxLote" onclick="ocultarLote()"><br>
 
       <label for="fechaElaboracion">Fecha de elaboración:</label>
       <input type="date" id="fechaElaboracion" required><br>
@@ -74,8 +76,10 @@
 
     <div id="seccion3" class="seccion">
       <h2>Sección 3: Análisis químicos que requiere</h2>
-      <label for="analisisFisicoquimico">Análisis Fisicoquímico:</label>
-      <input type="checkbox" id="analisisFisicoquimico"><br>
+
+      <label for="analisisFisicoquimico">Análisis Fisicoquímico $2000:</label>
+      <input type="checkbox" id="analisisFisicoquimico" onclick="mostrarFisico(); precioTotal('analisisFisicoquimico', 2000)"><br>
+
       <div id="datosAnalisisFisicoquimico" hidden>
         <label for="pdfAnalisisFisicoquimico">PDF:</label>
         <input type="file" id="pdfAnalisisFisicoquimico">
@@ -84,45 +88,45 @@
       </div>
 
       <label for="analisisMicrobiologico">Análisis Microbiológico:</label>
-      <input type="checkbox" id="analisisMicrobiologico"><br>
+      <input type="checkbox" id="analisisMicrobiologico" onclick="mostrarMicro()"><br>
       <div id="datosAnalisisMicrobiologico" hidden>
         <label>Opciones:</label><br>
         
-          <input type="checkbox" id="aerobiasMesofilas">
+          <input type="checkbox" class="opciones" id="aerobiasMesofilas" onclick="precioTotal('aerobiasMesofilas',1500)">
           <label for="aerobiasMesofilas">Aerobias Mesófilas $1500</label><br>
     
-          <input type="checkbox" id="coliformesEcoli">
+          <input type="checkbox" class="opciones" id="coliformesEcoli" onclick="precioTotal('coliformesEcoli',2000)">
           <label for="coliformesEcoli">Coliformes Totales/E.Coli $2000</label><br>
         
-          <input type="checkbox" id="salmonella">
+          <input type="checkbox" class="opciones" id="salmonella" onclick="precioTotal('salmonella',2500)">
           <label for="salmonella">Salmonella $2500</label><br>
         
-          <input type="checkbox" id="pseudomonaAeruginosa">
+          <input type="checkbox" class="opciones" id="pseudomonaAeruginosa" onclick="precioTotal('pseudomonaAeruginosa',3000)">
           <label for="pseudomonaAeruginosa">Pseudomona aeruginosa $3000</label><br>
         
-          <input type="checkbox" id="bacteriasLacticas">
+          <input type="checkbox" class="opciones" id="bacteriasLacticas" onclick="precioTotal('bacteriasLacticas',2500)">
           <label for="bacteriasLacticas">Bacterias Lácticas $2500</label><br>
         
-          <input type="checkbox" id="enterobacterias">
+          <input type="checkbox" class="opciones" id="enterobacterias" onclick="precioTotal('enterobacterias',2000)">
           <label for="enterobacterias">Enterobacterias $2000</label><br>
         
-          <input type="checkbox" id="staphylococcusAureus">
+          <input type="checkbox" class="opciones" id="staphylococcusAureus" onclick="precioTotal('staphylococcusAureus',2500)">
           <label for="staphylococcusAureus">Staphylococcus aureus $2500</label><br>
         
-          <input type="checkbox" id="hongosLevaduras">
+          <input type="checkbox" class="opciones" id="hongosLevaduras" onclick="precioTotal('hongosLevaduras',2000)">
           <label for="hongosLevaduras">Hongos y Levaduras $2000</label><br>
         
       </div>
 
-      <label for="determinacionNutricional">Determinación de información nutricional:</label>
-      <input type="checkbox" id="determinacionNutricional"><br>
+      <label for="determinacionNutricional">Determinación de información nutricional $1500:</label>
+      <input type="checkbox" id="determinacionNutricional" onclick="precioTotal('determinacionNutricional',1500)"><br>
 
-      <label for="azucaresTotales">Azúcares Totales:</label>
-      <input type="checkbox" id="azucaresTotales"><br>
+      <label for="azucaresTotales">Azúcares Totales $2000:</label>
+      <input type="checkbox" id="azucaresTotales" onclick="precioTotal('azucaresTotales',2000)"><br>
 
       <div id="precioTotal">
         <label for="precioTotalCampo">Precio total:</label>
-        <input type="text" id="precioTotalCampo" readonly>
+        <input type="text" id="precioTotalCampo" value="0" readonly>
       </div><br>
 
       <div class="botones">

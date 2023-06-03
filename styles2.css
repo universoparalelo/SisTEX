@@ -2,14 +2,6 @@ body {
     font-family: Arial, sans-serif;
   }
   
-  .seccion {
-    display: none;
-  }
-  
-  .active {
-    display: block;
-  }
-  
   .botones {
     margin-top: 20px;
   }
