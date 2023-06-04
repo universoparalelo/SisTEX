@@ -2,12 +2,12 @@
 <html>
 <head>
   <title>Formulario</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles2.css">
   <script src="script2.js"></script>
 </head>
 <body>
   <form id="formulario" action="#" method="post">
-    <div id="seccion1" class="seccion active">
+    <div id="seccion1" class="seccion step active">
       <h2>Sección 1: Datos personales</h2>
       <label for="nombre">Nombre:</label>
       <input type="text" id="nombre" required><br>
@@ -33,11 +33,11 @@
       <input type="text" id="telefono" required><br>
 
       <div class="botones">
-        <button id="btnSiguiente1" type="button">Siguiente</button>
+        <button id="btnSiguiente1" type="button" onclick="nextStep(1)">Siguiente</button>
       </div>
     </div>
 
-    <div id="seccion2" class="seccion">
+    <div id="seccion2" class="seccion step">
       <h2>Sección 2: Datos de la muestra</h2>
       <label for="nombreMuestra">Nombre de la muestra:</label>
       <input type="text" id="nombreMuestra" required><br>
@@ -69,12 +69,12 @@
       <input type="date" id="fechaVencimiento" required><br>
 
       <div class="botones">
-        <button id="btnAnterior2" type="button">Anterior</button>
-        <button id="btnSiguiente2" type="button">Siguiente</button>
+        <button id="btnAnterior2" type="button" onclick="prevStep(0)">Anterior</button>
+        <button id="btnSiguiente2" type="button" onclick="nextStep(2)">Siguiente</button>
       </div>
     </div>
 
-    <div id="seccion3" class="seccion">
+    <div id="seccion3" class="seccion step">
       <h2>Sección 3: Análisis químicos que requiere</h2>
 
       <label for="analisisFisicoquimico">Análisis Fisicoquímico $2000:</label>
@@ -130,28 +130,28 @@
       </div><br>
 
       <div class="botones">
-        <button id="btnAnterior3" type="button">Anterior</button>
-        <button id="btnSiguiente3" type="button">Siguiente</button>
+        <button id="btnAnterior3" type="button" onclick="prevStep(1)">Anterior</button>
+        <button id="btnSiguiente3" type="button" onclick="nextStep(3)">Siguiente</button>
       </div>
     </div>
 
-    <div id="seccion4" class="seccion">
+    <div id="seccion4" class="seccion step">
       <h2>Sección 4: Información adicional sobre la solicitud de muestra</h2>
       <label>Razón por la cual necesita realizar los análisis:</label>
       <div>
-        <input type="radio" name="razon" value="Inscripción RNPA">
+        <input type="radio" name="razon" value="Inscripción RNPA" onchange="MostrarOtro()">
         <label for="razon">Inscripción RNPA</label>
       </div>
       <div>
-        <input type="radio" name="razon" value="Re-inscripción RNPA">
+        <input type="radio" name="razon" value="Re-inscripción RNPA" onchange="MostrarOtro()">
         <label for="razon">Re-inscripción RNPA</label>
       </div>
       <div>
-        <input type="radio" name="razon" value="Control de calidad de la empresa">
+        <input type="radio" name="razon" value="Control de calidad de la empresa" onchange="MostrarOtro()">
         <label for="razon">Control de calidad de la empresa</label>
       </div>
       <div>
-        <input type="radio" name="razon" value="Otro">
+        <input type="radio" id="radioOtro" name="razon" value="Otro" onchange="MostrarOtro()">
         <label for="razon">Otro:</label>
         <input type="text" id="otroRazon" disabled>
       </div>
@@ -177,12 +177,12 @@
       <input type="text" id="lapsoAptitud" required>
 
       <div class="botones">
-        <button id="btnAnterior4" type="button">Anterior</button>
-        <button id="btnSiguiente4" type="button">Siguiente</button>
+        <button id="btnAnterior4" type="button" onclick="prevStep(2)">Anterior</button>
+        <button id="btnSiguiente4" type="button" onclick="nextStep(4)">Siguiente</button>
       </div>
     </div>
 
-    <div id="seccion5" class="seccion">
+    <div id="seccion5" class="seccion step">
       <h2>Sección 5: Realizar pago</h2>
       <img src="imagen.jpeg" alt="Imagen con Datos de la cuenta corriente a enviar el dinero"><br>
 
@@ -190,9 +190,12 @@
       <input type="file" id="comprobante" required>
 
       <div class="botones">
-        <button id="btnAnterior5" type="button">Anterior</button>
-        <button id="btnEnviar" type="submit">Enviar</button>
+        <button id="btnAnterior5" type="button" onclick="prevStep(3)">Anterior</button>
+        <button id="btnEnviar" type="submit" onclick="nextStep(5)">Enviar</button>
       </div>
+    </div>
+    <div id="seccionMensajeFinal" class="seccion step">
+      <h2>Felicitaciones, el formulario se envio correctamente. Ahora puede llevar la muestra al Laboratorio Quitex ubicado en French 414, Resistencia, Chaco</h2>
     </div>
   </form>
 
