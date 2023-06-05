@@ -6,20 +6,20 @@
   <script src="script2.js"></script>
 </head>
 <body>
-  <form id="formulario" action="#" method="post">
+  <form id="formulario" action="mailto:cmartinrodich@gmail.com" method="post">
     <div id="seccion1" class="seccion step active">
       <h2>Sección 1: Datos personales</h2>
       <label for="nombre">Nombre:</label>
-      <input type="text" id="nombre" required><br>
+      <input type="text" id="nombre" name="nombre" required><br>
 
       <label for="apellido">Apellido:</label>
-      <input type="text" id="apellido" required><br>
+      <input type="text" id="apellido" name="apellido" required><br>
 
       <label for="direccion">Dirección:</label>
-      <input type="text" id="direccion" required><br>
+      <input type="text" id="direccion" name="direccion" required><br>
 
       <label for="provincia">Provincia:</label>
-      <select id="provincia" required>
+      <select id="provincia" name="provincia" required>
         <option value="">Seleccionar</option>
         <option value="Chaco">Chaco</option>
         <option value="Santa Fe">Santa Fe</option>
@@ -27,10 +27,10 @@
       </select><br>
 
       <label for="localidad">Localidad:</label>
-      <input type="text" id="localidad" required><br>
+      <input type="text" id="localidad" name="localidad" required><br>
 
       <label for="telefono">Número de teléfono:</label>
-      <input type="text" id="telefono" required><br>
+      <input type="text" id="telefono" name="telefono" required><br>
 
       <div class="botones">
         <button id="btnSiguiente1" type="button" onclick="nextStep(1)">Siguiente</button>
@@ -40,10 +40,10 @@
     <div id="seccion2" class="seccion step">
       <h2>Sección 2: Datos de la muestra</h2>
       <label for="nombreMuestra">Nombre de la muestra:</label>
-      <input type="text" id="nombreMuestra" required><br>
+      <input type="text" id="nombreMuestra" name="nombreMuestra" required><br>
 
       <label for="producto">Producto:</label>
-      <select id="producto" onchange="mostrarBloque_estilos()" required>
+      <select id="producto" name="producto" onchange="mostrarBloque_estilos()" required>
         <option value="">Seleccionar</option>
         <option value="Cerveza">Cerveza</option>
         <option value="Harinas">Harinas</option>
@@ -54,19 +54,19 @@
 
       <div id="bloque_estilos" hidden>
         <label for="estilos">Estilos:</label>
-        <input type="text" id="estilos"><br>
+        <input type="text" id="estilos" name="estilos"><br>
       </div>
 
       <label for="lote">Lote:</label>
-      <input type="text" id="lote">
+      <input type="text" id="lote" name="lote">
       <label for="checkboxLote">No tengo lote</label>
-      <input type="checkbox" id="checkboxLote" onclick="ocultarLote()"><br>
+      <input type="checkbox" id="checkboxLote" name="noTieneLote" onclick="ocultarLote()"><br>
 
       <label for="fechaElaboracion">Fecha de elaboración:</label>
-      <input type="date" id="fechaElaboracion" required><br>
+      <input type="date" id="fechaElaboracion" name="fechaElaboracion" required><br>
 
       <label for="fechaVencimiento">Fecha de vencimiento:</label>
-      <input type="date" id="fechaVencimiento" required><br>
+      <input type="date" id="fechaVencimiento" name="fechaVencimiento" required><br>
 
       <div class="botones">
         <button id="btnAnterior2" type="button" onclick="prevStep(0)">Anterior</button>
@@ -78,7 +78,7 @@
       <h2>Sección 3: Análisis químicos que requiere</h2>
 
       <label for="analisisFisicoquimico">Análisis Fisicoquímico $2000:</label>
-      <input type="checkbox" id="analisisFisicoquimico" onclick="mostrarFisico(); precioTotal('analisisFisicoquimico', 2000)"><br>
+      <input type="checkbox" id="analisisFisicoquimico" name="analisisFisicoquimico" onclick="mostrarFisico(); precioTotal('analisisFisicoquimico', 2000)"><br>
 
       <div id="datosAnalisisFisicoquimico" hidden>
         <label for="pdfAnalisisFisicoquimico">PDF:</label>
