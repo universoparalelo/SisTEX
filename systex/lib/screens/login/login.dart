@@ -1,93 +1,76 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
-import 'package:systex/screens/dash/dash.dart';
+import 'package:systex/screens/home/home.dart';
+import 'package:systex/screens/login/widgets/email_field.dart';
+import 'package:systex/screens/login/widgets/password_field.dart';
+import 'package:systex/services/api/http/userHttp.dart';
 
-class LoginPanel extends StatelessWidget {
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
+class Login extends StatefulWidget {
+  Login({Key? key}) : super(key: key);
 
-  void _submitForm() {
-    String email = _emailController.text;
-    String password = _passwordController.text;
+  @override
+  State<Login> createState() => _LoginState();
+}
 
-    // Aquí puedes agregar la lógica para autenticar al usuario con las credenciales ingresadas
-
-    print('Email: $email');
-    print('Password: $password');
-  }
-
+class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //appBar: AppBar(
-      //   title: Text('Admin Panel'),
-      //  ),
-      body: Container(
-        /*
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('assets/background_image.jpg'),
-            fit: BoxFit.cover,
-          ),
-        ),*/
+      backgroundColor: Colors.white,
+      body: Center(child: LoginBody()),
+    );
+  }
+}
+
+class LoginBody extends StatefulWidget {
+  @override
+  State<LoginBody> createState() => _LoginBodyState();
+}
+
+class _LoginBodyState extends State<LoginBody> {
+  TextEditingController email = TextEditingController();
+  TextEditingController password = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    return ClipRRect(
+      borderRadius: const BorderRadius.all(Radius.circular(12)),
+      child: Container(
+        color: Colors.black.withOpacity(0.15),
+        height: MediaQuery.of(context).size.height * 0.5,
+        width: MediaQuery.of(context).size.width * 0.35,
+        padding: const EdgeInsets.all(20.0),
         child: Center(
-          child: Card(
-            margin: const EdgeInsets.symmetric(horizontal: 32.0),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16.0),
-            ),
-            child: Container(
-              padding: const EdgeInsets.all(32.0),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  const Text(
-                    'SysTEx - Inicio de Sesión',
-                    style: TextStyle(
-                      fontSize: 24.0,
-                      fontWeight: FontWeight.bold,
-                    ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                  height: 80.0,
+                  width: 80.0,
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
                   ),
-                  const SizedBox(height: 16.0),
-                  TextFormField(
-                    controller: _emailController,
-                    decoration: const InputDecoration(
-                      labelText: 'Email',
-                      prefixIcon: Icon(Icons.email),
-                    ),
-                  ),
-                  const SizedBox(height: 16.0),
-                  TextFormField(
-                    controller: _passwordController,
-                    decoration: const InputDecoration(
-                      labelText: 'Password',
-                      prefixIcon: Icon(Icons.lock),
-                    ),
-                    obscureText: true,
-                  ),
-                  const SizedBox(height: 24.0),
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const DashboardScreen()));
-                    },
-                    child: const Text('Login'),
-                  ),
-                  const SizedBox(height: 16.0),
-                  TextButton(
-                    onPressed: () {
-                      // Aquí puedes implementar la lógica para la recuperación de contraseña
-                      print('Olvidé mi contraseña');
-                    },
-                    child: const Text(
-                      'Olvidé mi contraseña',
-                      style: TextStyle(color: Colors.blue),
-                    ),
-                  ),
-                ],
+                  child: Image.asset('assets/images/logo.png')),
+              const SizedBox(height: 20),
+              EmailField(email: email),
+              const SizedBox(height: 10),
+              PasswordField(password: password),
+              const SizedBox(height: 30),
+              ElevatedButton(
+                onPressed: () async {
+                  UserHttp userHttp = UserHttp();
+                  Map<String, dynamic> resp =
+                      await userHttp.authUser(email.text, password.text);
+                  // Lógica para manejar el inicio de sesión
+                  if (resp.containsKey('token_session')) {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => Home()));
+                  }
+                },
+                child: const Text("Iniciar Sesión"),
               ),
-            ),
+            ],
           ),
         ),
       ),

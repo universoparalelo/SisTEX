@@ -1,18 +1,32 @@
-class Muestra {
+class Muestras {
+  String idMuestra;
   String nombreMuestra;
   String lote;
-  String nombre_productor;
-  String fecha_elab;
-  String fecha_ingreso;
-  String tipo_muestra;
+  String idElaborador;
+  String fechaElaboracion;
+  String fechaIngreso;
+  String tipoMuestra;
   String estilo;
 
-  Muestra(
-      {required this.nombreMuestra,
+  Muestras(
+      {required this.idMuestra,
+      required this.nombreMuestra,
       required this.lote,
-      required this.nombre_productor,
-      required this.estilo,
-      required this.fecha_elab,
-      required this.fecha_ingreso,
-      required this.tipo_muestra});
+      required this.idElaborador,
+      required this.fechaElaboracion,
+      required this.fechaIngreso,
+      required this.tipoMuestra,
+      required this.estilo});
+
+  factory Muestras.fromJson(Map<String, dynamic> json) {
+    return Muestras(
+        idMuestra: json["id_muestra"],
+        nombreMuestra: json["nombre_muestra"],
+        lote: json["lote"],
+        idElaborador: json["id_elaborador"],
+        fechaElaboracion: json["fecha_elaboracion"],
+        fechaIngreso: json["fecha_ingreso"],
+        tipoMuestra: json["tipo_muestra"],
+        estilo: json["estilo"]);
+  }
 }

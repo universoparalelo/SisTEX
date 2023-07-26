@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "582904473207",
+    "project_id": "systex-99cff",
+    "storage_bucket": "systex-99cff.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:582904473207:android:9e1ddc7a191063e1b9c872",
+        "android_client_info": {
+          "package_name": "com.example.systex"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "582904473207-vlmai0vpp2nb6bn2ib04jri45e87pbn8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBDBWWuRImpNJRuyb5pkan_KqmbL8lPOHA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "582904473207-vlmai0vpp2nb6bn2ib04jri45e87pbn8.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "582904473207-jb3kmblej3v6v13dlorjpv3jbq82a9rq.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.systex"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
