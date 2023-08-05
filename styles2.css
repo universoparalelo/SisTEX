@@ -1,35 +1,43 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
 body {
     font-family: Arial, sans-serif;
+    background-color: #f8f8f8;
+    font-family: Arial, sans-serif;
+    background-color: #cfd4d8;
   }
   
-  .botones {
-    margin-top: 20px;
-  }
-  
-  .botones button {
-    margin-right: 10px;
-  }
-  
-  .step {
+.step {
     display: none;
   }
-  .step.active {
+.step.active {
     display: block;
   }
 
-  body {
-    background-color: #f8f8f8;
-    font-family: Arial, sans-serif;
-  }
+#formulario {
+  margin: 10px;
+  padding: 10px;
+}
   
-  .step {
+.step {
     background-color: #ffffff;
-    max-width: 500px;
+    max-width: 50%;
     margin: 0 auto;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin: 0 auto;
+    border: #336699 solid 2px;
+  }
+
+  @media screen and (max-width: 767px) {
+    /* Estilos para dispositivos móviles con un ancho máximo de 767px */
+    .step {
+      max-width: 100%;
+      margin: 0 0;
+    }
   }
   
   .step h2 {
@@ -37,6 +45,9 @@ body {
   }
   
   .step input[type="text"],
+  .step input[type="date"],
+  .step input[type="file"],
+  .step input[type="number"],
   .step select {
     border: 1px solid #336699;
     border-radius: 4px;
@@ -44,15 +55,7 @@ body {
     margin: 5px auto;
   }
   
-  button {
-    background-color: #336699;
-    color: #ffffff;
-    border: none;
-    border-radius: 4px;
-    padding: 10px 20px;
-    cursor: pointer;
-  }
-  
+  button, 
   button[type="submit"] {
     background-color: #336699;
     color: #ffffff;
@@ -60,6 +63,7 @@ body {
     border-radius: 4px;
     padding: 10px 20px;
     cursor: pointer;
+    margin: 20px 10px auto auto;
   }
   
   /* Estilos adicionales para otras secciones y elementos del formulario */
