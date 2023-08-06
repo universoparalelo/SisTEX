@@ -1,3 +1,6 @@
+
+
+
 const API_URL = 'http://localhost:8000'
 
 const xhr = new XMLHttpRequest();
@@ -15,7 +18,7 @@ function onRequestHandler(){
 
         for(let i = 0; i < data.length; i++){
             detalleAnalisisMicro += `
-            <input type="checkbox" class="checkSeccion3 opciones" name="aM" onclick="precioTotal(${data[i].precio})">
+            <input type="checkbox" class="opciones ${data[i].id_tipo_muestra}" name="aM" onclick="precioTotal(${data[i].precio}, '${data[i].id_tipo_muestra}')">
             <label for="aerobiasMesofilas">${data[i].tipo_muestra} $${data[i].precio}</label><br>
             `
         }
@@ -25,9 +28,25 @@ function onRequestHandler(){
     }
 }
 
-xhr.addEventListener("load", onRequestHandler);
-xhr.open('GET', `${API_URL}/api/tipomuestras`);
-xhr.send();
+
+
+var total = 0
+
+function precioTotal(value, idClase){
+    let elementoCheck = document.querySelector(`.${idClase}`);
+    console.log(elementoCheck)
+    console.log(elementoCheck.checked)
+    const elementoPrecioTotal = document.getElementById("inputPrecioTotal");
+
+    if (elementoCheck.checked){
+        total += parseInt(value)
+    } else {
+        total -= parseInt(value)
+    }
+
+    elementoPrecioTotal.value = 'Precio Total: $' + total
+    console.log(total)
+}
 
 
 function ocultarLote(){
@@ -116,17 +135,7 @@ function mostrarMicro(){
     }
 }
 
-var total = 0
 
-function precioTotal(value){
-    let elementosCheck = document.querySelectorAll('.checkSeccion3')
-    const elementoPrecioTotal = document.getElementById("inputPrecioTotal")
-
-    total += parseInt(value)
-    elementoPrecioTotal.value = 'Precio Total: $' + total
-
-    console.log(total)
-}
 
 // console.log(document.getElementById("hongosLevaduras").value)
 
@@ -187,37 +196,42 @@ function prevStep(step) {
 function validateFields(step){
     switch (step) {
         case 0:
-            if (document.getElementById("nombre").value===''|
-                document.getElementById("apellido").value===''|
-                document.getElementById("provincia").value ===''|
-                document.getElementById("localidad").value===''|
-                document.getElementById("dni").value===''){
-                    return false
-                } else return true
+            // if (document.getElementById("nombre").value===''|
+            //     document.getElementById("apellido").value===''|
+            //     document.getElementById("provincia").value ===''|
+            //     document.getElementById("localidad").value===''|
+            //     document.getElementById("dni").value===''){
+            //         return false
+            //     } else return true
+            return true
         case 1:
-            if (document.getElementById("denominacionMuestra").value === ''|
-                document.getElementById("marca").value === ''|
-                document.getElementById("razonSocial").value === ''|
-                document.getElementById("direccion").value === ''|
-                (document.getElementById("checkboxLote").checked === false && document.getElementById("lote").value === '')|
-                document.getElementById("lote").value === ''|
-                document.getElementById("fechaElaboracion").value ===''|
-                document.getElementById("fechaVencimiento").value ===''|
-                document.getElementById("fechaElaboracion").value > document.getElementById("fechaVencimiento").value){
-                    return false;
-                } else {
-                    xhr.addEventListener("load", onRequestHandler);
-                    xhr.open('GET', `${API_URL}/api/tipomuestras`);
-                    xhr.send();
-                    return true;
-                }
-                
+            // if (document.getElementById("denominacionMuestra").value === ''|
+            //     document.getElementById("marca").value === ''|
+            //     document.getElementById("razonSocial").value === ''|
+            //     document.getElementById("direccion").value === ''|
+            //     (document.getElementById("checkboxLote").checked === false && document.getElementById("lote").value === '')|
+            //     document.getElementById("lote").value === ''|
+            //     document.getElementById("fechaElaboracion").value ===''|
+            //     document.getElementById("fechaVencimiento").value ===''|
+            //     document.getElementById("fechaElaboracion").value > document.getElementById("fechaVencimiento").value){
+            //         return false;
+            //     } else {
+            //         xhr.addEventListener("load", onRequestHandler);
+            //         xhr.open('GET', `${API_URL}/api/tipomuestras`);
+            //         xhr.send();
+            //         return true;
+            //     }
+            xhr.addEventListener("load", onRequestHandler);
+            xhr.open('GET', `${API_URL}/api/tipomuestras`);
+            xhr.send();
+            return true
         case 2:
             return true;
         case 3:
-            if (document.getElementById("comprobante").value === ''){
-                return false;
-            } else return true;
+            // if (document.getElementById("comprobante").value === ''){
+            //     return false;
+            // } else return true;
+            return true
     }
 }
 
@@ -257,6 +271,35 @@ function repetirSeccion3(){
         elementoDatosMicrobiologico.classList.add(`datosAnalisisMicrobiologico${i}`);
     }
 }
+
+
+
+function copiar(idInput){
+    const myInput = document.getElementById(idInput);
+
+    myInput.select();
+    navigator.clipboard.writeText(myInput.value)
+    .then(() => {
+        Swal.fire({
+            position: 'top',
+            icon: 'success',
+            title: 'Texto copiado en portapapeles',
+            showConfirmButton: false,
+            timer: 1500
+          })
+    })
+    .catch(err => {
+        // Manejar errores si la copia falla
+        Swal.fire({
+            position: 'top',
+            icon: 'error',
+            title: 'No se pudo copiar el texto',
+            showConfirmButton: false,
+            timer: 1500
+          })
+    });
+}
+
 
 
 

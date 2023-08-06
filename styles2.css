@@ -5,14 +5,14 @@
 
 body {
     font-family: Arial, sans-serif;
-    background-color: #f8f8f8;
     font-family: Arial, sans-serif;
-    background-color: #cfd4d8;
+    background-image: linear-gradient(45deg, #bbd2f1, #d1d7ec, #e5dce8, #f8e1e3)
   }
   
 .step {
     display: none;
   }
+
 .step.active {
     display: block;
   }
@@ -66,5 +66,7 @@ body {
     margin: 20px 10px auto auto;
   }
   
-  /* Estilos adicionales para otras secciones y elementos del formulario */
+input[type="checkbox"]{
+  margin: 10px 0;
+}
   

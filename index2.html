@@ -6,8 +6,16 @@
   <!-- CSS -->
   <link rel="stylesheet" href="styles2.css">
 
+  <!-- MENSAJE FLOTANTE -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <!-- JQUERY -->
+  <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+
   <!-- SCRIPT -->
-  <script src="script2.js" ></script>
+  <script src="script2.js"></script>
+
+  
   
 </head>
 <body>
@@ -129,7 +137,7 @@
         <hr style="margin:10px 0;">
 
         <label for="analisisFisicoquimico">Análisis Fisicoquímico $2000:</label>
-        <input type="checkbox" class="checkSeccion3" id="analisisFisicoquimico" name="analisisFisicoquimico" onclick="mostrarFisico(); precioTotal(2000)"><br>
+        <input type="checkbox" class="checkAF" id="analisisFisicoquimico" name="analisisFisicoquimico" onclick="mostrarFisico(); precioTotal(2000, 'checkAF')"><br>
 
         <div id="datosAnalisisFisicoquimico" class="" hidden>
           <label for="pdfAnalisisFisicoquimico">Si es su primera vez analizando con nosotros:</label>
@@ -144,10 +152,10 @@
         </div>
 
         <label for="determinacionNutricional">Determinación de información nutricional $1500:</label>
-        <input type="checkbox" class="checkSeccion3" id="determinacionNutricional" onclick="precioTotal(1500)"><br>
+        <input type="checkbox" class="checkDN" id="determinacionNutricional" onclick="precioTotal(1500, 'checkDN')"><br>
 
         <label for="azucaresTotales">Azúcares Totales $2000:</label>
-        <input type="checkbox" class="checkSeccion3" id="azucaresTotales" onclick="precioTotal(2000)"><br>
+        <input type="checkbox" class="checkAT" id="azucaresTotales" onclick="precioTotal(2000, 'checkAT')"><br>
       </div>
 
       <div id="elementosClonados3">
@@ -171,7 +179,28 @@
 
     <div id="seccion4" class="seccion step">
       <h2>Sección 4: Realizar pago</h2>
-      <img src="imagen.jpeg" alt="Imagen con Datos de la cuenta corriente a enviar el dinero"><br>
+      <div class="pago">
+        <h3>BANCO NACION ARGENTINA Suc. 429</h3>
+        <h5>Cuenta corriente N° 4292269648</h5>
+        <h5>Razón social: Asociación Cooperadora Facultad Regional Resistencia UTN</h5>
+        <h5 for="cuit">CUIT: 30-67019023-0</h5>
+
+        <h4 for="cbu">CBU:
+
+          <input type="text" id="cbu" value="0110429920042922696488" readonly style="outline: none;">
+          <button id="btnCopiar" type="button" onclick="copiar('cbu', 'mensajeFlotante')">Copiar</button>
+
+          <div id="mensajeFlotante" class="mensaje-flotante"></div>
+        </h4>
+        <h4>MERCADO PAGO</h4>
+
+        <h4 for="cvu">CVU: 
+
+          <input type="text" id="cvu" value="0000003100004846937450" readonly style="outline: none;">
+          <button id="btnCopiar2" type="button" onclick="copiar('cvu')">Copiar</button>
+
+        </h4>
+      </div>
 
       <label for="comprobante">Cargar comprobante de pago:</label>
       <input type="file" id="comprobante" required>
