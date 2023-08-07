@@ -34,12 +34,12 @@ function precioTotal(value, idClase){
 };
 
 
-function ocultarLote(){
-    if (document.getElementById("checkboxLote").checked){
-        document.getElementById("lote").setAttribute('disabled', true);
-        document.getElementById("lote").value = '';
+function ocultarLote(idInput, idCheck){
+    if (document.querySelector(`.${idCheck}`).checked){
+        document.querySelector(`.${idInput}`).setAttribute('disabled', true);
+        document.querySelector(`.${idInput}`).value = '';
     } else {
-        document.getElementById("lote").removeAttribute('disabled');
+        document.querySelector(`.${idInput}`).removeAttribute('disabled');
     };
 };
 
@@ -63,14 +63,14 @@ function mostrarFisico(idInput, idHidden, idRadio){
 }
 
 
-function MostrarOtro(){
-    if (document.getElementById("radioOtro").checked){
-        document.getElementById("otroRazon").removeAttribute("disabled")
+function MostrarOtro(idInput, idInfo){
+    if (document.querySelector(`.${idInput}`).checked){
+        document.querySelector(`.${idInfo}`).removeAttribute("disabled");
     } else {
-        document.getElementById("otroRazon").setAttribute("disabled", true)
-        document.getElementById("otroRazon").value = ''
-    }
-}
+        document.querySelector(`.${idInfo}`).setAttribute("disabled", true);
+        document.querySelector(`.${idInfo}`).value = '';
+    };
+};
 
 // Variables para controlar el stepper
 var currentStep = 0;
@@ -125,6 +125,7 @@ function validateFields(step){
             //     document.getElementById("dni").value===''){
             //         return false
             //     } else return true
+            
             return true
         case 1:
             // if (document.getElementById("denominacionMuestra").value === ''|
@@ -143,6 +144,7 @@ function validateFields(step){
             //         xhr.send();
             //         return true;
             //     }
+            cargarMuestras();
             return true
         case 2:
             return true;
@@ -155,27 +157,86 @@ function validateFields(step){
 }
 
 function repetirSeccion(){
+    cantidadProductos = document.getElementById('cantidadProducto').value;
     // Obtenemos la cantidad de productos seleccionada por el usuario
-    const cantidadProductos = document.getElementById('cantidadProducto').value;
     
-    const seccionOriginal = document.getElementById("elementosSeccion2");
-    const contenedorClonadas = document.getElementById("secciones-clonadas");
+    const contenedorSeccion2 = document.getElementById("elementosSeccion2");
+    let textoSeccion2 = ''
 
 
-    for (let i = 0; i < cantidadProductos-1; i++) {
+    for (let i = 0; i < cantidadProductos; i++) {
+        textoSeccion2 += `
+        <hr style="margin: 15px 0;">
+        <label for="denominacionMuestra">Denominacion de la muestra:*</label>
+        <input type="text" class="denominacionMuestra-${i}" name="denominacionMuestra" required><br>
+
+        <label for="marca">Marca:</label>
+        <input type="text" class="marca-${i}" name="marca"><br>
+
+        <label for="razonSocial">Razon social:* </label>
+        <input type="text" class="razonSocial-${i}" name="razonSocial" required><br>
         
-        const clon = seccionOriginal.cloneNode(true);
-        contenedorClonadas.appendChild(clon);
+        <label for="direccion">Dirección del establecimiento:* </label>
+        <input type="text" class="direccion-${i}" name="direccion" required><br>
 
-        clon.querySelector(".Re-inscripción").classList.remove('re_inscripcion_0');
-        clon.querySelector(".Re-inscripción").classList.add(`re_inscripcion_${i+1}`);
+        <label for="estilos">Estilos:</label>
+        <input type="text" class="estilos-${i}" name="estilos"><br>
 
+        <label for="lote">Lote:*</label>
+        <input type="text" class="lote-${i}" name="lote">
+        <label for="checkboxLote">No tengo lote</label>
+        <input type="checkbox" class="checkboxLote-${i}" name="noTieneLote" onclick="ocultarLote('lote-${i}', 'checkboxLote-${i}')"><br>
+
+        <label for="fechaElaboracion">Fecha de elaboración:*</label>
+        <input type="date" class="fechaElaboracion-${i}" name="fechaElaboracion" required><br>
+
+        <label for="fechaVencimiento">Fecha de vencimiento:*</label>
+        <input type="date" class="fechaVencimiento-${i}" name="fechaVencimiento" required><br>
+        
+        <label for="lapso">Lapso (en dias): </label>
+        <input type="text" class="lapso-${i}" name="lapso"><br><br>
+
+        <label>Razón por la cual necesita realizar los análisis:*</label>
+        <div>
+          <input type="radio" name="razon-${i}" value="Inscripción RNPA" onchange="MostrarOtro()">
+          <label for="razon">Inscripción RNPA</label>
+        </div>
+        <div>
+          <input type="radio" name="razon-${i}" value="Re-inscripción RNPA" class="re_inscripcion_${i}" onchange="MostrarOtro()">
+          <label for="razon">Re-inscripción RNPA</label>
+        </div>
+        <div>
+          <input type="radio" name="razon-${i}" value="Control de calidad de la empresa" onchange="MostrarOtro()">
+          <label for="razon">Control de calidad de la empresa</label>
+        </div>
+        <div>
+          <input type="radio" class="radioOtro-${i}" name="razon-${i}" value="Otro" onchange="MostrarOtro('radioOtro-${i}', 'otroRazon-${i}')">
+          <label for="razon">Otro:</label>
+          <input type="text" class="otroRazon-${i}" disabled>
+        </div>
+
+        <label for="codigoAlimentario">Código alimentario argentino:</label>
+        <input type="text" class="codigoAlimentario-${i}"><br><br>
+
+        <label>Temperatura de almacenamiento:*</label>
+        <div>
+          <input type="radio" name="temperatura-${i}" value="Temperatura ambiente">
+          <label for="temperatura">Temperatura ambiente</label>
+        </div>
+        <div>
+          <input type="radio" name="temperatura-${i}" value="Refrigerada">
+          <label for="temperatura">Refrigerada</label>
+        </div>
+        <div>
+          <input type="radio" name="temperatura-${i}" value="Congelada">
+          <label for="temperatura">Congelada</label>
+        </div>
+        `
     }
+    contenedorSeccion2.innerHTML = textoSeccion2;
 }
 
 function repetirSeccion3(){
-    const cantidadProductos = document.getElementById('cantidadProducto').value;
-
     // const seccionOriginal = document.getElementById("elementosSeccion3");
     const contenedor = document.getElementById("elementosSeccion3");
     let textoCompleto = '';
@@ -247,6 +308,78 @@ function copiar(idInput){
           })
     });
 }
+
+
+class Muestra{
+    
+
+    hola(){
+        console.log(this)
+    }
+}
+
+function cargarMuestras(){
+    cantidadProductos = document.getElementById('cantidadProducto').value;
+    let muestras = []
+
+    for (let i=0; i<cantidadProductos; i++){
+        muestras[i] = new Muestra();
+
+        // SECCION 1
+        muestras[i].nombre = document.getElementById('nombre').value;
+        muestras[i].apellido = document.getElementById('apellido').value;
+        muestras[i].provincia = document.getElementById('provincia').value;
+        muestras[i].localidad = document.getElementById('localidad').value;
+        muestras[i].dni = document.getElementById('dni').value;
+        muestras[i].telefono = document.getElementById('telefono').value;
+
+        //SECCION 2
+        muestras[i].denominacion = document.querySelector(`.denominacionMuestra-${i}`).value;
+        muestras[i].marca = document.querySelector(`.marca-${i}`).value;
+        muestras[i].razonSocial = document.querySelector(`.razonSocial-${i}`).value;
+        muestras[i].direccion = document.querySelector(`.direccion-${i}`).value;
+        muestras[i].estilos = document.querySelector(`.estilos-${i}`).value;
+        muestras[i].fechaElaboracion = document.querySelector(`.fechaElaboracion-${i}`).value;
+        muestras[i].fechaVencimiento = document.querySelector(`.fechaVencimiento-${i}`).value;
+        muestras[i].lapso = document.querySelector(`.lapso-${i}`).value;
+        muestras[i].codigoAlimentario = document.querySelector(`.codigoAlimentario-${i}`).value;
+
+        if (document.querySelector(`.lote-${i}`).value == ''){
+            muestras[i].lote = muestras[i].fechaElaboracion.replace(/-/g, '');
+            console.log(muestras[i].fechaElaboracion.replace(/-/g, ''))
+        } else {
+            muestras[i].lote = document.querySelector(`.lote-${i}`).value;
+        }
+
+        let radios = document.getElementsByName(`razon-${i}`);
+
+        for (const radio of radios) {
+            if (radio.checked) {
+                if(radio.value == 'Otro'){
+                    muestras[i].razonAnalisis = document.querySelector(`.otroRazon-${i}`).value;
+                } else {
+                    muestras[i].razonAnalisis = radio.value;
+                }
+            break; // Salir del bucle al encontrar el radio seleccionado
+            }
+        }
+
+        let radios2 = document.getElementsByName(`temperatura-${i}`);
+
+        for (const radio of radios2) {
+            if (radio.checked) {
+                muestras[i].temperatura = radio.value;
+                break; // Salir del bucle al encontrar el radio seleccionado
+            }
+        }
+
+        
+        
+
+        muestras[i].hola()
+    }
+}
+
 
 
 

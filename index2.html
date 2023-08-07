@@ -56,76 +56,9 @@
 
     <div id="seccion2" class="seccion step seccion2">
       <h2>Sección 2: Datos de la muestra</h2>
-
+      
       <div id="elementosSeccion2" class="elementosSeccion2" name="elementosSeccion2">
-        <hr style="margin: 15px 0;">
-        <label for="denominacionMuestra">Denominacion de la muestra:*</label>
-        <input type="text" id="denominacionMuestra" name="denominacionMuestra" required><br>
-
-        <label for="marca">Marca:</label>
-        <input type="text" id="marca" name="marca"><br>
-
-        <label for="razonSocial">Razon social:* </label>
-        <input type="text" id="razonSocial" name="razonSocial" required><br>
-        
-        <label for="direccion">Dirección del establecimiento:* </label>
-        <input type="text" id="direccion" name="direccion" required><br>
-
-        <label for="estilos">Estilos:</label>
-        <input type="text" id="estilos" name="estilos"><br>
-
-        <label for="lote">Lote:*</label>
-        <input type="text" id="lote" name="lote">
-        <label for="checkboxLote">No tengo lote</label>
-        <input type="checkbox" id="checkboxLote" name="noTieneLote" onclick="ocultarLote()"><br>
-
-        <label for="fechaElaboracion">Fecha de elaboración:*</label>
-        <input type="date" id="fechaElaboracion" name="fechaElaboracion" required><br>
-
-        <label for="fechaVencimiento">Fecha de vencimiento:*</label>
-        <input type="date" id="fechaVencimiento" name="fechaVencimiento" required><br>
-        
-        <label for="lapso">Lapso (en dias): </label>
-        <input type="text" id="lapso" name="lapso"><br><br>
-
-        <label>Razón por la cual necesita realizar los análisis:*</label>
-        <div>
-          <input type="radio" name="razon" value="Inscripción RNPA" onchange="MostrarOtro()">
-          <label for="razon">Inscripción RNPA</label>
-        </div>
-        <div>
-          <input type="radio" name="razon" value="Re-inscripción RNPA" class="Re-inscripción re_inscripcion_0" onchange="MostrarOtro()">
-          <label for="razon">Re-inscripción RNPA</label>
-        </div>
-        <div>
-          <input type="radio" name="razon" value="Control de calidad de la empresa" onchange="MostrarOtro()">
-          <label for="razon">Control de calidad de la empresa</label>
-        </div>
-        <div>
-          <input type="radio" id="radioOtro" name="razon" value="Otro" onchange="MostrarOtro()">
-          <label for="razon">Otro:</label>
-          <input type="text" id="otroRazon" disabled>
-        </div>
-
-        <label for="codigoAlimentario">Código alimentario argentino:</label>
-        <input type="text" id="codigoAlimentario"><br><br>
-
-        <label>Temperatura de almacenamiento:*</label>
-        <div>
-          <input type="radio" name="temperatura" value="Temperatura ambiente">
-          <label for="temperatura">Temperatura ambiente</label>
-        </div>
-        <div>
-          <input type="radio" name="temperatura" value="Refrigerada">
-          <label for="temperatura">Refrigerada</label>
-        </div>
-        <div>
-          <input type="radio" name="temperatura" value="Congelada">
-          <label for="temperatura">Congelada</label>
-        </div>
       </div>
-
-      <div id="secciones-clonadas"></div>
 
       <div class="botones">
         <button id="btnAnterior2" type="button" onclick="prevStep(0)">Anterior</button>
