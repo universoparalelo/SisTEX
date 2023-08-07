@@ -1,143 +1,56 @@
 
 
 
-const API_URL = 'http://localhost:8000'
-
+const API_URL = 'http://localhost:8000';
 const xhr = new XMLHttpRequest();
+var contador = 0;
 
 function onRequestHandler(){
     if (this.readyState === 4 && this.status === 200){
         
-        const data = JSON.parse(this.response)
-        const divAM = document.getElementById("datosAnalisisMicrobiologico")
+        data = JSON.parse(this.response);
+    };
+};
 
-        // console.log(data)
-        // console.log(data.length)
+xhr.addEventListener("load", onRequestHandler);
+xhr.open('GET', `${API_URL}/api/tipomuestras`);
+xhr.send();
 
-        let detalleAnalisisMicro = ''
-
-        for(let i = 0; i < data.length; i++){
-            detalleAnalisisMicro += `
-            <input type="checkbox" class="opciones ${data[i].id_tipo_muestra}" name="aM" onclick="precioTotal(${data[i].precio}, '${data[i].id_tipo_muestra}')">
-            <label for="aerobiasMesofilas">${data[i].tipo_muestra} $${data[i].precio}</label><br>
-            `
-        }
-
-        divAM.innerHTML = `
-        <label>Opciones:</label><br>` + detalleAnalisisMicro
-    }
-}
-
-
-
-var total = 0
+var total = 0;
 
 function precioTotal(value, idClase){
     let elementoCheck = document.querySelector(`.${idClase}`);
-    console.log(elementoCheck)
-    console.log(elementoCheck.checked)
+    
     const elementoPrecioTotal = document.getElementById("inputPrecioTotal");
 
     if (elementoCheck.checked){
-        total += parseInt(value)
+        total += parseInt(value);
     } else {
-        total -= parseInt(value)
-    }
+        total -= parseInt(value);
+    };
 
-    elementoPrecioTotal.value = 'Precio Total: $' + total
-    console.log(total)
-}
+    elementoPrecioTotal.value = 'Precio Total: $' + total;
+    console.log(total);
+};
 
 
 function ocultarLote(){
     if (document.getElementById("checkboxLote").checked){
-        document.getElementById("lote").setAttribute('disabled', true)
-        document.getElementById("lote").value = ''
+        document.getElementById("lote").setAttribute('disabled', true);
+        document.getElementById("lote").value = '';
     } else {
-        document.getElementById("lote").removeAttribute('disabled')
-    }
+        document.getElementById("lote").removeAttribute('disabled');
+    };
+};
+
+function mostrar(idInput, idHidden){
+    if (document.querySelector(`.${idInput}`).checked){
+        document.querySelector(`.${idHidden}`).removeAttribute('hidden');
+    } else {
+        document.querySelector(`.${idHidden}`).setAttribute('hidden', true);
+    };
 }
 
-function mostrarFisico(){
-    if (document.getElementById("analisisFisicoquimico").checked){
-        document.getElementById("datosAnalisisFisicoquimico").removeAttribute('hidden')
-    } else {
-        document.getElementById("datosAnalisisFisicoquimico").setAttribute('hidden', true)
-    }
-
-    try{
-        if (document.querySelector(".analisisFisicoquimico0").checked){
-            document.querySelector(".datosAnalisisFisicoquimico0").removeAttribute('hidden')
-        } else {
-            document.querySelector(".datosAnalisisFisicoquimico0").setAttribute('hidden', true)
-        }
-    
-        if (document.querySelector(".analisisFisicoquimico1").checked){
-            document.querySelector(".datosAnalisisFisicoquimico1").removeAttribute('hidden')
-        } else {
-            document.querySelector(".datosAnalisisFisicoquimico1").setAttribute('hidden', true)
-        }
-    
-        if (document.querySelector(".analisisFisicoquimico2").checked){
-            document.querySelector(".datosAnalisisFisicoquimico2").removeAttribute('hidden')
-        } else {
-            document.querySelector(".datosAnalisisFisicoquimico2").setAttribute('hidden', true)
-        }
-    
-        if (document.querySelector(".analisisFisicoquimico3").checked){
-            document.querySelector(".datosAnalisisFisicoquimico3").removeAttribute('hidden')
-        } else {
-            document.querySelector(".datosAnalisisFisicoquimico3").setAttribute('hidden', true)
-        }
-    } catch(error){
-        console.log('Error'+error.message)
-    }
-}
-
-function mostrarMicro(){
-    if (document.getElementById("analisisMicrobiologico").checked){
-        document.getElementById("datosAnalisisMicrobiologico").removeAttribute('hidden')
-        return;
-    } else {
-        document.getElementById("datosAnalisisMicrobiologico").setAttribute('hidden', true)
-    }
-
-    try{
-        if (document.querySelector(".analisisMicrobiologico0").checked){
-            document.querySelector(".datosAnalisisMicrobiologico0").removeAttribute('hidden')
-            return;
-        } else {
-            document.querySelector(".datosAnalisisMicrobiologico0").setAttribute('hidden', true)
-        }
-    
-        if (document.querySelector(".analisisMicrobiologico1").checked){
-            document.querySelector(".datosAnalisisMicrobiologico1").removeAttribute('hidden')
-            return;
-        } else {
-            document.querySelector(".datosAnalisisMicrobiologico1").setAttribute('hidden', true)
-        }
-    
-        if (document.querySelector(".analisisMicrobiologico2").checked){
-            document.querySelector(".datosAnalisisMicrobiologico2").removeAttribute('hidden')
-            return;
-        } else {
-            document.querySelector(".datosAnalisisMicrobiologico2").setAttribute('hidden', true)
-        }
-    
-        if (document.querySelector(".analisisMicrobiologico3").checked){
-            document.querySelector(".datosAnalisisMicrobiologico3").removeAttribute('hidden')
-            return;
-        } else {
-            document.querySelector(".datosAnalisisMicrobiologico3").setAttribute('hidden', true)
-        }
-    } catch(error){
-        console.log('Error:', error.message)
-    }
-}
-
-
-
-// console.log(document.getElementById("hongosLevaduras").value)
 
 function MostrarOtro(){
     if (document.getElementById("radioOtro").checked){
@@ -178,13 +91,14 @@ function prevStep(step) {
         while (elementoPadre.firstChild) {
             elementoPadre.removeChild(elementoPadre.firstChild);
             }
-    } else if (step == 1){
-        let elementoPadre = document.getElementById('elementosClonados3')
+    } 
+    // else if (step == 1){
+    //     let elementoPadre = document.querySelector('.elementosSeccion3')
 
-        while (elementoPadre.firstChild) {
-            elementoPadre.removeChild(elementoPadre.firstChild);
-            }
-    }
+    //     while (elementoPadre.firstChild) {
+    //         elementoPadre.removeChild(elementoPadre.firstChild);
+    //         }
+    // }
 
     // Ocultar paso actual y mostrar paso anterior
     document.getElementsByClassName('step')[currentStep].classList.remove('active');
@@ -221,9 +135,6 @@ function validateFields(step){
             //         xhr.send();
             //         return true;
             //     }
-            xhr.addEventListener("load", onRequestHandler);
-            xhr.open('GET', `${API_URL}/api/tipomuestras`);
-            xhr.send();
             return true
         case 2:
             return true;
@@ -251,27 +162,50 @@ function repetirSeccion(){
 function repetirSeccion3(){
     const cantidadProductos = document.getElementById('cantidadProducto').value;
 
-    const seccionOriginal = document.getElementById("elementosSeccion3");
-    const contenedorClonadas = document.getElementById("elementosClonados3");
+    // const seccionOriginal = document.getElementById("elementosSeccion3");
+    const contenedor = document.getElementById("elementosSeccion3");
+    let textoCompleto = '';
 
-    for (let i = 0; i < cantidadProductos-1; i++) {
-        const clon = seccionOriginal.cloneNode(true);
-        contenedorClonadas.appendChild(clon);
+    for (let j = 0; j < cantidadProductos; j++) {
 
-        let elementoFisicoquimico = clon.querySelector("#analisisFisicoquimico");
-        let elementoDatosFisicoquimico = clon.querySelector("#datosAnalisisFisicoquimico");
+        textoCompleto += `<hr style="margin:10px 0;">
+        <label for="analisisMicrobiologico">Análisis Microbiológico:</label>
+        <input type="checkbox" class="analisisMicrobiologico-${j}" onclick="mostrar('analisisMicrobiologico-${j}', 'datosAnalisisMicrobiologico-${j}')"><br>
+        
+        <div class="datosAnalisisMicrobiologico-${j}" hidden>
+        `
 
-        let elementoMicrobiologico = clon.querySelector("#analisisMicrobiologico");
-        let elementoDatosMicrobiologico = clon.querySelector("#datosAnalisisMicrobiologico");
+        let i = 0;
 
-        elementoFisicoquimico.classList.add(`analisisFisicoquimico${i}`);
-        elementoDatosFisicoquimico.classList.add(`datosAnalisisFisicoquimico${i}`);
-
-        elementoMicrobiologico.classList.add(`analisisMicrobiologico${i}`);
-        elementoDatosMicrobiologico.classList.add(`datosAnalisisMicrobiologico${i}`);
+        while (data[i].tipo_muestra !== 'Completo') {
+            textoCompleto += `
+            <input type="checkbox" class="${data[i].id_tipo_muestra}-${contador}" name="aM" onclick="precioTotal(${data[i].precio}, '${data[i].id_tipo_muestra}')">
+            <label for="aerobiasMesofilas">${data[i].tipo_muestra} $${data[i].precio}</label><br>
+            `;
+            i += 1;
+        };
+        contador += 1;
+        
+        textoCompleto += `
+        </div>
+        <label for="analisisFisicoquimico">${data[i].tipo_muestra} $${data[i].precio}:</label>
+        <input type="checkbox" class="${data[i].id_tipo_muestra}-${j}" name="analisisFisicoquimico" onclick="mostrar('${data[i].id_tipo_muestra}-${j}', 'datosAnalisisFisicoquimico-${j}'); precioTotal(${data[i].precio}, '${data[i].id_tipo_muestra}-${j}')"><br>
+        
+        <div class="datosAnalisisFisicoquimico-${j}" hidden>
+            <label for="pdfAnalisisFisicoquimico">Si es su primera vez analizando con nosotros:</label>
+            <input type="file" id="analisisPDF">
+        </div>
+        
+        <label for="determinacionNutricional">${data[i+1].tipo_muestra} $${data[i+1].precio}</label>
+        <input type="checkbox" class="${data[i+1].id_tipo_muestra}-${j}" id="determinacionNutricional" onclick="precioTotal(${data[i+1].precio}, '${data[i+1].id_tipo_muestra}-${j}')"><br>
+        
+        <label for="azucaresTotales">${data[i+2].tipo_muestra} $${data[i+2].precio}</label>
+        <input type="checkbox" class="${data[i+2].id_tipo_muestra}-${j}" id="azucaresTotales" onclick="precioTotal(${data[i+2].precio}, '${data[i+2].id_tipo_muestra}-${j}')"><br></br>`
+        
     }
-}
 
+    contenedor.innerHTML = textoCompleto
+}
 
 
 function copiar(idInput){
@@ -299,6 +233,7 @@ function copiar(idInput){
           })
     });
 }
+
 
 
 

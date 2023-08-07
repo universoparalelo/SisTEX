@@ -32,7 +32,7 @@ body {
     border: #336699 solid 2px;
   }
 
-  @media screen and (max-width: 767px) {
+  @media screen and (max-width: 900px) {
     /* Estilos para dispositivos móviles con un ancho máximo de 767px */
     .step {
       max-width: 100%;
@@ -66,7 +66,13 @@ body {
     margin: 20px 10px auto auto;
   }
   
-input[type="checkbox"]{
+input[type="checkbox"],
+input[type="radio"]{
   margin: 10px 0;
+}
+
+#btnCopiar, 
+#btnCopiar2 {
+  margin: 0;
 }
   

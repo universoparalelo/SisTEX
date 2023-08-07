@@ -58,6 +58,7 @@
       <h2>Sección 2: Datos de la muestra</h2>
 
       <div id="elementosSeccion2" class="elementosSeccion2" name="elementosSeccion2">
+        <hr style="margin: 15px 0;">
         <label for="denominacionMuestra">Denominacion de la muestra:</label>
         <input type="text" id="denominacionMuestra" name="denominacionMuestra" required><br>
 
@@ -82,7 +83,7 @@
         <input type="date" id="fechaElaboracion" name="fechaElaboracion" required><br>
 
         <label for="fechaVencimiento">Fecha de vencimiento:</label>
-        <input type="date" id="fechaVencimiento" name="fechaVencimiento" required><br>
+        <input type="date" id="fechaVencimiento" name="fechaVencimiento" required><br><br>
 
         <label>Razón por la cual necesita realizar los análisis:</label>
         <div>
@@ -104,7 +105,7 @@
         </div>
 
         <label for="codigoAlimentario">Código alimentario argentino:</label>
-        <input type="text" id="codigoAlimentario"><br>
+        <input type="text" id="codigoAlimentario"><br><br>
 
         <label>Temperatura de almacenamiento:</label>
         <div>
@@ -119,7 +120,6 @@
           <input type="radio" name="temperatura" value="Congelada">
           <label for="temperatura">Congelada</label>
         </div>
-        <hr style="margin: 15px 0;">
       </div>
 
       <div id="secciones-clonadas"></div>
@@ -134,38 +134,8 @@
       <h2>Sección 3: Análisis químicos que requiere</h2>
       
       <div id="elementosSeccion3">
-        <hr style="margin:10px 0;">
-
-        <label for="analisisFisicoquimico">Análisis Fisicoquímico $2000:</label>
-        <input type="checkbox" class="checkAF" id="analisisFisicoquimico" name="analisisFisicoquimico" onclick="mostrarFisico(); precioTotal(2000, 'checkAF')"><br>
-
-        <div id="datosAnalisisFisicoquimico" class="" hidden>
-          <label for="pdfAnalisisFisicoquimico">Si es su primera vez analizando con nosotros:</label>
-          <input type="file" id="analisisPDF">
-        </div>
-
-        <label for="analisisMicrobiologico">Análisis Microbiológico:</label>
-        <input type="checkbox" id="analisisMicrobiologico" class="" onclick="mostrarMicro()"><br>
-
-        <div id="datosAnalisisMicrobiologico" class="" hidden>
-          <!-- ELEMENTOS DEL GET TIPO MUESTRAS -->
-        </div>
-
-        <label for="determinacionNutricional">Determinación de información nutricional $1500:</label>
-        <input type="checkbox" class="checkDN" id="determinacionNutricional" onclick="precioTotal(1500, 'checkDN')"><br>
-
-        <label for="azucaresTotales">Azúcares Totales $2000:</label>
-        <input type="checkbox" class="checkAT" id="azucaresTotales" onclick="precioTotal(2000, 'checkAT')"><br>
+        
       </div>
-
-      <div id="elementosClonados3">
-
-      </div>
-
-      <!-- <div id="precioTotal">
-        <label for="precioTotalCampo">Precio total:</label>
-        <input type="text" id="precioTotalCampo" value="0" readonly>
-      </div><br> -->
 
       <div class="precioTotalAnalisis">
         <input type="text" id="inputPrecioTotal" readonly style="outline: none;">
@@ -180,10 +150,11 @@
     <div id="seccion4" class="seccion step">
       <h2>Sección 4: Realizar pago</h2>
       <div class="pago">
+        <hr style="margin: 15px 0;">
         <h3>BANCO NACION ARGENTINA Suc. 429</h3>
-        <h5>Cuenta corriente N° 4292269648</h5>
-        <h5>Razón social: Asociación Cooperadora Facultad Regional Resistencia UTN</h5>
-        <h5 for="cuit">CUIT: 30-67019023-0</h5>
+        <p style="margin: 10px 0;">Cuenta corriente N° 4292269648</p>
+        <p style="margin: 10px 0;">Razón social: Asociación Cooperadora Facultad Regional Resistencia UTN</p>
+        <p style="margin: 10px 0;">CUIT: 30-67019023-0</p>
 
         <h4 for="cbu">CBU:
 
@@ -192,6 +163,7 @@
 
           <div id="mensajeFlotante" class="mensaje-flotante"></div>
         </h4>
+        <hr style="margin: 15px 0;">
         <h4>MERCADO PAGO</h4>
 
         <h4 for="cvu">CVU: 
