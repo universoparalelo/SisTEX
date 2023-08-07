@@ -51,6 +51,17 @@ function mostrar(idInput, idHidden){
     };
 }
 
+function mostrarFisico(idInput, idHidden, idRadio){
+    console.log(idRadio)
+    console.log(document.querySelector(`.${idRadio}`).checked)
+    
+    if (document.querySelector(`.${idInput}`).checked && document.querySelector(`.${idRadio}`).checked){
+        document.querySelector(`.${idHidden}`).removeAttribute('hidden');
+    } else {
+        document.querySelector(`.${idHidden}`).setAttribute('hidden', true);
+    };
+}
+
 
 function MostrarOtro(){
     if (document.getElementById("radioOtro").checked){
@@ -92,13 +103,10 @@ function prevStep(step) {
             elementoPadre.removeChild(elementoPadre.firstChild);
             }
     } 
-    // else if (step == 1){
-    //     let elementoPadre = document.querySelector('.elementosSeccion3')
-
-    //     while (elementoPadre.firstChild) {
-    //         elementoPadre.removeChild(elementoPadre.firstChild);
-    //         }
-    // }
+    else if (step == 1){
+        document.getElementById("inputPrecioTotal").value = 'Precio total: $0';
+        total = 0;
+    }
 
     // Ocultar paso actual y mostrar paso anterior
     document.getElementsByClassName('step')[currentStep].classList.remove('active');
@@ -149,13 +157,19 @@ function validateFields(step){
 function repetirSeccion(){
     // Obtenemos la cantidad de productos seleccionada por el usuario
     const cantidadProductos = document.getElementById('cantidadProducto').value;
-
+    
     const seccionOriginal = document.getElementById("elementosSeccion2");
     const contenedorClonadas = document.getElementById("secciones-clonadas");
 
+
     for (let i = 0; i < cantidadProductos-1; i++) {
+        
         const clon = seccionOriginal.cloneNode(true);
         contenedorClonadas.appendChild(clon);
+
+        clon.querySelector(".Re-inscripción").classList.remove('re_inscripcion_0');
+        clon.querySelector(".Re-inscripción").classList.add(`re_inscripcion_${i+1}`);
+
     }
 }
 
@@ -189,7 +203,7 @@ function repetirSeccion3(){
         textoCompleto += `
         </div>
         <label for="analisisFisicoquimico">${data[i].tipo_muestra} $${data[i].precio}:</label>
-        <input type="checkbox" class="${data[i].id_tipo_muestra}-${j}" name="analisisFisicoquimico" onclick="mostrar('${data[i].id_tipo_muestra}-${j}', 'datosAnalisisFisicoquimico-${j}'); precioTotal(${data[i].precio}, '${data[i].id_tipo_muestra}-${j}')"><br>
+        <input type="checkbox" class="${data[i].id_tipo_muestra}-${j}" name="analisisFisicoquimico" onclick="mostrarFisico('${data[i].id_tipo_muestra}-${j}', 'datosAnalisisFisicoquimico-${j}', 're_inscripcion_${j}'); precioTotal(${data[i].precio}, '${data[i].id_tipo_muestra}-${j}')"><br>
         
         <div class="datosAnalisisFisicoquimico-${j}" hidden>
             <label for="pdfAnalisisFisicoquimico">Si es su primera vez analizando con nosotros:</label>
