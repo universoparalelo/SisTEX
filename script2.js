@@ -30,7 +30,7 @@ function precioTotal(value, idClase){
     };
 
     elementoPrecioTotal.value = 'Precio Total: $' + total;
-    console.log(total);
+    // console.log(total);
 };
 
 
@@ -52,8 +52,6 @@ function mostrar(idInput, idHidden){
 }
 
 function mostrarFisico(idInput, idHidden, idRadio){
-    console.log(idRadio)
-    console.log(document.querySelector(`.${idRadio}`).checked)
     
     if (document.querySelector(`.${idInput}`).checked && document.querySelector(`.${idRadio}`).checked){
         document.querySelector(`.${idHidden}`).removeAttribute('hidden');
@@ -144,14 +142,16 @@ function validateFields(step){
             //         xhr.send();
             //         return true;
             //     }
-            cargarMuestras();
             return true
         case 2:
+            
+            cargarMuestras();
             return true;
         case 3:
             // if (document.getElementById("comprobante").value === ''){
             //     return false;
             // } else return true;
+            
             return true
     }
 }
@@ -198,15 +198,15 @@ function repetirSeccion(){
 
         <label>Razón por la cual necesita realizar los análisis:*</label>
         <div>
-          <input type="radio" name="razon-${i}" value="Inscripción RNPA" onchange="MostrarOtro()">
+          <input type="radio" name="razon-${i}" value="Inscripción RNPA" onchange="MostrarOtro('radioOtro-${i}', 'otroRazon-${i}')">
           <label for="razon">Inscripción RNPA</label>
         </div>
         <div>
-          <input type="radio" name="razon-${i}" value="Re-inscripción RNPA" class="re_inscripcion_${i}" onchange="MostrarOtro()">
+          <input type="radio" name="razon-${i}" value="Re-inscripción RNPA" class="re_inscripcion_${i}" onchange="MostrarOtro('radioOtro-${i}', 'otroRazon-${i}')">
           <label for="razon">Re-inscripción RNPA</label>
         </div>
         <div>
-          <input type="radio" name="razon-${i}" value="Control de calidad de la empresa" onchange="MostrarOtro()">
+          <input type="radio" name="razon-${i}" value="Control de calidad de la empresa" onchange="MostrarOtro('radioOtro-${i}', 'otroRazon-${i}')">
           <label for="razon">Control de calidad de la empresa</label>
         </div>
         <div>
@@ -254,7 +254,7 @@ function repetirSeccion3(){
 
         while (data[i].tipo_muestra !== 'Completo') {
             textoCompleto += `
-            <input type="checkbox" class="${data[i].id_tipo_muestra}-${contador}" name="aM" onclick="precioTotal(${data[i].precio}, '${data[i].id_tipo_muestra}')">
+            <input type="checkbox" class="${data[i].id_tipo_muestra}-${contador}" name="aM" onclick="precioTotal(${data[i].precio}, '${data[i].id_tipo_muestra}-${contador}')">
             <label for="aerobiasMesofilas">${data[i].tipo_muestra} $${data[i].precio}</label><br>
             `;
             i += 1;
@@ -311,11 +311,16 @@ function copiar(idInput){
 
 
 class Muestra{
+    constructor(){
+        this.analisisMicrobiologico = [];
+        this.fechaIngreso = ''
+    }
     
 
     hola(){
         console.log(this)
     }
+
 }
 
 function cargarMuestras(){
@@ -338,7 +343,7 @@ function cargarMuestras(){
         muestras[i].marca = document.querySelector(`.marca-${i}`).value;
         muestras[i].razonSocial = document.querySelector(`.razonSocial-${i}`).value;
         muestras[i].direccion = document.querySelector(`.direccion-${i}`).value;
-        muestras[i].estilos = document.querySelector(`.estilos-${i}`).value;
+        muestras[i].estilo = document.querySelector(`.estilos-${i}`).value;
         muestras[i].fechaElaboracion = document.querySelector(`.fechaElaboracion-${i}`).value;
         muestras[i].fechaVencimiento = document.querySelector(`.fechaVencimiento-${i}`).value;
         muestras[i].lapso = document.querySelector(`.lapso-${i}`).value;
@@ -346,7 +351,6 @@ function cargarMuestras(){
 
         if (document.querySelector(`.lote-${i}`).value == ''){
             muestras[i].lote = muestras[i].fechaElaboracion.replace(/-/g, '');
-            console.log(muestras[i].fechaElaboracion.replace(/-/g, ''))
         } else {
             muestras[i].lote = document.querySelector(`.lote-${i}`).value;
         }
@@ -373,10 +377,34 @@ function cargarMuestras(){
             }
         }
 
-        
-        
+        // SECCION 3    
+        let j = 0;
+        while (data[j].tipo_muestra !== 'Completo'){
+            muestras[i].analisisMicrobiologico[j] = document.querySelector(`.${data[j].id_tipo_muestra}-${i}`).checked
+            j += 1;
+        }
 
-        muestras[i].hola()
+        muestras[i].analisisFisicoquimico = document.querySelector(`.${data[j].id_tipo_muestra}-${i}`).checked;
+        muestras[i].determinacionNutricional = document.querySelector(`.${data[j+1].id_tipo_muestra}-${i}`).checked;
+        muestras[i].azucaresTotales = document.querySelector(`.${data[j+2].id_tipo_muestra}-${i}`).checked; 
+
+        // SECCION 4
+        muestras[i].comprobante = document.getElementById('comprobante').value
+        
+        muestras[i].hola();
+        console.log(convertirJSON(muestras[i]));
+    }
+}
+
+function convertirJSON(muestra){
+     return {
+        "nombre_muestra": muestra.denominacion,
+        "lote": muestra.lote,
+        "nombre_productor": muestra.nombre,
+        "fecha_elaboracion": muestra.fechaElaboracion,
+        "fecha_ingreso": muestra.fechaIngreso,
+        "tipo_muestra": muestra.marca,
+        "estilo": muestra.estilo
     }
 }
 
