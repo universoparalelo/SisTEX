@@ -14,6 +14,7 @@ class Productor {
 
   // Método que crea una instancia de Person desde un Map (JSON)
   factory Productor.fromJson(Map<String, dynamic> json) {
+    print('jotason' + json.toString());
     return Productor(
         idElaborador: json["id_elaborador"],
         nombre_y_apellido: json["nombre_y_apellido"],

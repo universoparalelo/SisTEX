@@ -15,8 +15,7 @@ class Responsive {
     double totalWidth = MediaQuery.of(context).size.width;
     double availableWidth = totalWidth * 0.8;
     double totalSpacing = (numberOfColumns - 1) * 15.0;
-    double spacing = (availableWidth - totalSpacing) /
-        (numberOfColumns - 1); // Ajusta aquí el número de columnas
+    double spacing = (availableWidth - totalSpacing) / numberOfColumns;
     return spacing;
   }
 }

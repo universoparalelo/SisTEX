@@ -19,7 +19,7 @@ class _DropdownStateAprobadosState extends State<DropdownStateAprobados> {
     super.initState();
     // Inicializa el valor seleccionado con el valor inicial proporcionado.
     selectedState = widget.solicitudes.estado;
-    print('state12' + widget.solicitudes.estado);
+    print('state12' + widget.solicitudes.analisisSolicitados);
   }
 
   var states = ["A iniciar", "En curso", "Finalizado"];

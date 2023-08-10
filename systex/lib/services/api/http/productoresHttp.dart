@@ -28,6 +28,7 @@ class ProductoresHttp implements RepositoryProductores {
       List<dynamic> responseData = jsonDecode(request.body);
 
       // Mapeamos los datos JSON a objetos Productor y los almacenamos en una lista
+
       List<Productor> _productores =
           responseData.map((item) => Productor.fromJson(item)).toList();
 
@@ -42,6 +43,7 @@ class ProductoresHttp implements RepositoryProductores {
 
   @override
   Future<List<Productor>> searchProductor(String nameProductor) async {
+    print('prod1' + nameProductor);
     String url = pathUrlBase + 'api/productores/$nameProductor';
     var resp = await http.get(Uri.parse(url));
     List<Productor> productores = [];

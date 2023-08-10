@@ -12,6 +12,7 @@ import 'package:systex/models/tipos_muestras.dart';
 import 'package:systex/screens/home/widgets/datatables/datatable_aprobados.dart';
 import 'package:systex/screens/home/widgets/datatables/datatable_informes.dart';
 import 'package:systex/screens/home/widgets/datatables/datatable_muestras.dart';
+import 'package:systex/screens/home/widgets/datatables/datatable_personal.dart';
 import 'package:systex/screens/home/widgets/datatables/datatable_producers.dart';
 import 'package:systex/screens/home/widgets/datatables/datatable_rechazados.dart';
 import 'package:systex/screens/home/widgets/datatables/datatable_solicitudes.dart';
@@ -127,6 +128,7 @@ class _HomeState extends State<Home> {
                   ),
                   onTap: () => selectOption('Opción 1'),
                 ),
+
                 ListTile(
                   leading: const Icon(
                     Icons.science,

@@ -67,56 +67,71 @@ class _DataTableSolicitudesAprobadasState
           return ListTile(title: Text(widget.solicitudes[index].nombreMuestra));
         });*/
 
-    return SingleChildScrollView(
-      scrollDirection: Axis.vertical,
-      child: filteredSolicitudes.isEmpty
-          ? Center(child: Text('Sin solicitudes'))
-          : DataTable(
-              horizontalMargin: 10,
-              columnSpacing: Responsive().calculateColumnSpacing(context, 6),
-              columns: const [
-                DataColumn(label: Text('MasInfo.')),
-                DataColumn(label: Text('FechaSolicitud')),
-                DataColumn(label: Text('Productor')),
-                DataColumn(label: Text('AnalisisSolicitados')),
-                //  DataColumn(label: Text('ComprobantePago')),
-                DataColumn(label: Text('Estado')),
-              ],
-              rows: filteredSolicitudes.map((e) {
-                return DataRow(cells: [
-                  DataCell(GestureDetector(
-                    onTap: () {
-                      showDialog(
-                          context: context,
-                          builder: (ctx) {
-                            return PopUpMoreInfo(
-                              producto: e.producto,
-                              tempAlmacenamiento: e.temperaturaAlmacenamiento,
-                              nroTelefono: e.nroTelefono,
-                              razonSocial: e.razonAnalisis,
-                              dirElaboracion: e.direccionElaboracion,
-                              estilo: e.estilo,
-                              fechaElaboracion: e.fechaElaboracion,
-                              fechaVencimiento: e.fechaVencimiento,
-                              localidad: e.localidad,
-                              lote: e.lote,
-                              nombreMuestra: e.nombreMuestra,
-                              provincia: e.provincia,
-                            );
-                          });
-                    },
-                    child: FaIcon(
-                      FontAwesomeIcons.eye,
-                      size: 12.0,
-                    ),
-                  )),
-                  DataCell(Text(e.fechaSolicitud)),
-                  DataCell(Text(e.nombre_y_apellido)),
-                  DataCell(DropdownStateAprobados(
-                    // state: e.estado,
-                    solicitudes: e,
-                  )),
-                  /*
+    return Expanded(
+        child: filteredSolicitudes.isEmpty
+            ? Container(
+                height: MediaQuery.of(context).size.height,
+                width: MediaQuery.of(context).size.width,
+                child: Center(child: Text('Sin solicitudes')))
+            : SingleChildScrollView(
+                scrollDirection: Axis.vertical,
+                child: DataTable(
+                  horizontalMargin: 5,
+                  columnSpacing:
+                      Responsive().calculateColumnSpacing(context, 6),
+                  columns: const [
+                    DataColumn(
+                        label: Text('MasInfo.',
+                            style: TextStyle(fontWeight: FontWeight.bold))),
+                    DataColumn(
+                        label: Text('FechaSolicitud',
+                            style: TextStyle(fontWeight: FontWeight.bold))),
+                    DataColumn(
+                        label: Text('Productor',
+                            style: TextStyle(fontWeight: FontWeight.bold))),
+                    DataColumn(
+                        label: Text('Estado',
+                            style: TextStyle(fontWeight: FontWeight.bold))),
+                    //  DataColumn(label: Text('ComprobantePago')),
+                    DataColumn(label: Text('AnalisisSolicitados')),
+                  ],
+                  rows: filteredSolicitudes.map((e) {
+                    return DataRow(cells: [
+                      DataCell(GestureDetector(
+                        onTap: () {
+                          showDialog(
+                              context: context,
+                              builder: (ctx) {
+                                return PopUpMoreInfo(
+                                  producto: e.producto,
+                                  tempAlmacenamiento:
+                                      e.temperaturaAlmacenamiento,
+                                  nroTelefono: e.nroTelefono,
+                                  analisisSolicitados: e.analisisSolicitados,
+                                  razonSocial: e.razonAnalisis,
+                                  dirElaboracion: e.direccionElaboracion,
+                                  estilo: e.estilo,
+                                  fechaElaboracion: e.fechaElaboracion,
+                                  fechaVencimiento: e.fechaVencimiento,
+                                  localidad: e.localidad,
+                                  lote: e.lote,
+                                  nombreMuestra: e.nombreMuestra,
+                                  provincia: e.provincia,
+                                );
+                              });
+                        },
+                        child: FaIcon(
+                          FontAwesomeIcons.eye,
+                          size: 12.0,
+                        ),
+                      )),
+                      DataCell(Text(e.fechaSolicitud)),
+                      DataCell(Text(e.nombre_y_apellido)),
+                      DataCell(DropdownStateAprobados(
+                        // state: e.estado,
+                        solicitudes: e,
+                      )),
+                      /*
                 DataCell(Container(
                   width: MediaQuery.of(context).size.width * 0.15,
                   child: RichText(
@@ -133,13 +148,10 @@ class _DataTableSolicitudesAprobadasState
                     ),
                   ),
                 )),*/
-                  DataCell(DropdownStateAprobados(
-                    // state: e.estado,
-                    solicitudes: e,
-                  )),
-                ]);
-              }).toList(),
-            ),
-    );
+                      DataCell(Text(e.analisisSolicitados)),
+                    ]);
+                  }).toList(),
+                ),
+              ));
   }
 }

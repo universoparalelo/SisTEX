@@ -202,6 +202,8 @@ class _DataTableSolicitudesState extends State<DataTableSolicitudes> {
                                         builder: (ctx) {
                                           return PopUpMoreInfo(
                                             producto: e.producto,
+                                            analisisSolicitados:
+                                                e.analisisSolicitados,
                                             tempAlmacenamiento:
                                                 e.temperaturaAlmacenamiento,
                                             nroTelefono: e.nroTelefono,
@@ -426,12 +428,14 @@ class _DataTableSolicitudesState extends State<DataTableSolicitudes> {
                         ),
                       );
                     } else {
-                      return Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Center(child: Text('Sin solicitudes pendientes')),
-                        ],
+                      return Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Center(child: Text('Sin solicitudes pendientes')),
+                          ],
+                        ),
                       );
                     }
                   }

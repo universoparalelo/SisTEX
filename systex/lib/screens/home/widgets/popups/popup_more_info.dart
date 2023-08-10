@@ -10,6 +10,7 @@ class PopUpMoreInfo extends StatefulWidget {
   String estilo;
   String producto;
   String fechaElaboracion;
+  String analisisSolicitados;
   String fechaVencimiento;
   String nombreMuestra;
   String lote;
@@ -22,6 +23,7 @@ class PopUpMoreInfo extends StatefulWidget {
       required this.localidad,
       required this.producto,
       required this.dirElaboracion,
+      required this.analisisSolicitados,
       required this.estilo,
       required this.fechaElaboracion,
       required this.fechaVencimiento,

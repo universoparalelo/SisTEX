@@ -107,13 +107,27 @@ class _DataTableSolicitudesRechazadasState
                   horizontalMargin:
                       5, // Aumenta el espacio entre las celdas del DataTable
                   columns: const [
-                    DataColumn(label: Text('MasInfo.')),
-                    DataColumn(label: Text('FechaSolicitud')),
-                    DataColumn(label: Text('Productor')),
-                    DataColumn(label: Text('Motivo')),
-                    DataColumn(label: Text('AnalisisSolicitados')),
-                    DataColumn(label: Text('ComprobantePago')),
-                    DataColumn(label: Text('Estado')),
+                    DataColumn(
+                        label: Text('MasInfo.',
+                            style: TextStyle(fontWeight: FontWeight.bold))),
+                    DataColumn(
+                        label: Text('FechaSolicitud',
+                            style: TextStyle(fontWeight: FontWeight.bold))),
+                    DataColumn(
+                        label: Text('Productor',
+                            style: TextStyle(fontWeight: FontWeight.bold))),
+                    DataColumn(
+                        label: Text('Motivo',
+                            style: TextStyle(fontWeight: FontWeight.bold))),
+                    DataColumn(
+                        label: Text('AnalisisSolicitados',
+                            style: TextStyle(fontWeight: FontWeight.bold))),
+                    DataColumn(
+                        label: Text('ComprobantePago',
+                            style: TextStyle(fontWeight: FontWeight.bold))),
+                    DataColumn(
+                        label: Text('Estado',
+                            style: TextStyle(fontWeight: FontWeight.bold))),
                   ],
                   rows: filteredSolicitudes.map((e) {
                     return DataRow(cells: [
@@ -124,6 +138,7 @@ class _DataTableSolicitudesRechazadasState
                               builder: (ctx) {
                                 return PopUpMoreInfo(
                                   producto: e.producto,
+                                  analisisSolicitados: e.analisisSolicitados,
                                   tempAlmacenamiento:
                                       e.temperaturaAlmacenamiento,
                                   nroTelefono: e.nroTelefono,
