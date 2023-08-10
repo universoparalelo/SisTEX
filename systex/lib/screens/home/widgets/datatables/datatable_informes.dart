@@ -4,6 +4,8 @@ import 'package:systex/config.dart';
 import 'package:systex/models/informes.dart';
 import 'package:systex/models/muestras.dart';
 import 'package:systex/models/productores.dart';
+import 'package:systex/services/api/http/muestrasHttp.dart';
+import 'package:systex/services/responsive/responsive.dart';
 
 class DataTableInformes extends StatefulWidget {
   List<Informes> informes;
@@ -20,7 +22,7 @@ class _DataTableInformesState extends State<DataTableInformes> {
   @override
   void initState() {
     super.initState();
-    print('wg' + widget.informes.toString());
+
     filteredInformes =
         widget.informes; // Inicialmente mostramos todos los elementos
 
@@ -85,47 +87,59 @@ class _DataTableInformesState extends State<DataTableInformes> {
             child: SingleChildScrollView(
               scrollDirection: Axis.vertical,
               child: DataTable(
-                columnSpacing: columnSpacing,
-                horizontalMargin:
-                    5, // Aumenta el espacio entre las celdas del DataTable
+                columnSpacing: Responsive().calculateColumnSpacing(context, 6),
+                horizontalMargin: 5,
                 columns: const [
-                  //DataColumn(label: Text('CodMuestra')),
-                  DataColumn(label: Text('URL')),
+                  DataColumn(
+                    label: Text('URL'),
+                  ),
                   DataColumn(label: Text('FechaInforme')),
-                  DataColumn(label: Text('TipoInforme')),
+                  DataColumn(label: Text('CodMuestra')),
+                  DataColumn(label: Text('Analisis')),
                   DataColumn(label: Text('Lote')),
                   DataColumn(label: Text('Acciones')),
                 ],
                 rows: filteredInformes.map((e) {
                   return DataRow(cells: [
-                    //DataCell(Text(e.idMuestra)),
-                    DataCell(RichText(
-                      text: TextSpan(
-                        text: e.urlInforme,
-                        style: TextStyle(
-                          color: Colors.blue, // Color azul
-                          decoration: TextDecoration.underline, // Subrayado
+                    DataCell(
+                      SizedBox(
+                        width:
+                            100, // Ajusta este valor para cambiar el ancho de la celda URL
+                        child: RichText(
+                          text: TextSpan(
+                            text: e.urlInforme,
+                            style: TextStyle(
+                              color: Colors.blue,
+                              decoration: TextDecoration.underline,
+                            ),
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () {
+                                launchURL(e.urlInforme);
+                              },
+                          ),
                         ),
-                        recognizer: TapGestureRecognizer()
-                          ..onTap = () {
-                            launchURL(e.urlInforme);
-                          },
                       ),
-                    )),
+                    ),
                     DataCell(Text(e.fecha)),
+                    DataCell(
+                      Text(e.id_muestra),
+                    ),
                     DataCell(Text(e.nombre)),
                     DataCell(Text(e.lote)),
                     DataCell(Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         IconButton(
-                            onPressed: () {}, icon: const Icon(Icons.edit)),
+                          onPressed: () {},
+                          icon: const Icon(Icons.edit),
+                        ),
                         IconButton(
-                            onPressed: () {},
-                            icon: const Icon(
-                              Icons.delete,
-                              color: Colors.red,
-                            ))
+                          onPressed: () {},
+                          icon: const Icon(
+                            Icons.delete,
+                            color: Colors.red,
+                          ),
+                        )
                       ],
                     )),
                   ]);

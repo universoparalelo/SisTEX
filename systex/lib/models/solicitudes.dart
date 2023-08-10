@@ -6,6 +6,7 @@ class Solicitudes {
   String nombreMuestra;
   String estilo;
   String nroTelefono;
+  String dni;
   String producto;
   String lote;
   String precioTotal;
@@ -13,6 +14,7 @@ class Solicitudes {
   String temperaturaAlmacenamiento;
   String fechaElaboracion;
   String fechaVencimiento;
+  String parametrosSolicitados;
   // String estado;
   String direccionElaboracion;
   String localidad;
@@ -22,6 +24,7 @@ class Solicitudes {
   Solicitudes({
     required this.idSolicitud,
     required this.fechaSolicitud,
+    required this.dni,
     required this.nombre_y_apellido,
     required this.analisisSolicitados,
     required this.nombreMuestra,
@@ -37,16 +40,18 @@ class Solicitudes {
     // required this.estado,
     required this.direccionElaboracion,
     required this.localidad,
+    required this.parametrosSolicitados,
     required this.provincia,
     required this.urlComprobantePago,
   });
 
   // Método que crea una instancia de Solicitudes desde un Map (JSON)
   factory Solicitudes.fromJson(Map<String, dynamic> json) {
-    print('jti' + json.toString());
+    print('kts' + json["analisis_solicitados"]);
     return Solicitudes(
       idSolicitud: json["id_solicitud"],
       fechaSolicitud: json["fecha_solicitud"],
+      dni: json["dni"],
       nombre_y_apellido: json["nombre_y_apellido"],
       analisisSolicitados: json["analisis_solicitados"],
       nombreMuestra: json["nombre_muestra"],
@@ -54,6 +59,7 @@ class Solicitudes {
       nroTelefono: json["nro_telefono"],
       producto: json["producto"],
       lote: json["lote"],
+      parametrosSolicitados: json["parametros_solicitados"],
       precioTotal: json["precio_total"],
       razonAnalisis: json["razon_analisis"],
       temperaturaAlmacenamiento: json["temperatura_almacenamiento"],

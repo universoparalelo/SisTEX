@@ -13,6 +13,7 @@ class TipoMuestrasHttp implements TipoMuestrasRepository {
     var resp = await http.get(Uri.parse(url));
     List<TipoMuestras> tipos_analisis = [];
     if (resp.statusCode == 200) {
+      print('rby67' + resp.body);
       List<Map<String, dynamic>> jsonMap =
           List<Map<String, dynamic>>.from(jsonDecode(resp.body));
 
@@ -20,7 +21,31 @@ class TipoMuestrasHttp implements TipoMuestrasRepository {
         TipoMuestras analisis = TipoMuestras.fromJson(jsonMap[i]);
         tipos_analisis.add(analisis);
       }
+    } else {
+      print('code' + resp.body);
     }
     return tipos_analisis;
+  }
+
+  @override
+  Future<String> updateAnalisis(TipoMuestras tipomuestras) async {
+    String idTipoMuestra = tipomuestras.idTipoMuestra;
+    Map<String, dynamic> map = tipomuestras.toMap();
+    String url =
+        pathUrlBase + 'api/tipomuestras/updateTipoMuestra/$idTipoMuestra';
+
+    var resp = await http.put(
+      Uri.parse(url),
+      headers: {
+        'Content-Type': 'application/json',
+        'accept': 'application/json',
+      },
+      body: json.encode(map),
+    );
+    if (resp.statusCode == 200) {
+      return "Analisis actualizado!";
+    } else {
+      return "Error. No se pudo actualizar el analisis";
+    }
   }
 }

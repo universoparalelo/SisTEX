@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:systex/models/muestras.dart';
 import 'package:systex/models/productores.dart';
+import 'package:systex/services/responsive/responsive.dart';
 
 class DataTableMuestras extends StatefulWidget {
   List<Muestras> muestras;
@@ -27,7 +28,7 @@ class _DataTableMuestrasState extends State<DataTableMuestras> {
       if (availableWidth < 800) {
         // Si el ancho es menor a 800 (por ejemplo, en dispositivos móviles), aumentamos el columnSpacing
         setState(() {
-          columnSpacing = 50.0;
+          columnSpacing = 75.0;
         });
       }
     });
@@ -46,17 +47,16 @@ class _DataTableMuestrasState extends State<DataTableMuestras> {
 
   @override
   Widget build(BuildContext context) {
-    return Flexible(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        mainAxisSize: MainAxisSize.max,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
+    return Expanded(
+        child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisSize: MainAxisSize.max,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
           const SizedBox(width: 15.0),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
-            // Utilizamos un Row para alinear la barra de búsqueda hacia la izquierda
             children: [
               Padding(
                 padding: const EdgeInsets.all(4.0),
@@ -80,27 +80,39 @@ class _DataTableMuestrasState extends State<DataTableMuestras> {
                 onPressed: () {},
                 child: Icon(Icons.add, color: Colors.white),
                 backgroundColor: Colors.black,
-              )
+              ),
             ],
           ),
           Expanded(
-            child: SingleChildScrollView(
-              scrollDirection: Axis.vertical,
+              child: SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            child: FittedBox(
+              fit: BoxFit.fitWidth,
               child: DataTable(
-                columnSpacing: columnSpacing,
-                horizontalMargin:
-                    5, // Aumenta el espacio entre las celdas del DataTable
+                columnSpacing: Responsive().calculateColumnSpacing(context, 6),
                 columns: const [
-                  //DataColumn(label: Text('CodMuestra')),
-                  DataColumn(label: Text('Nombre Muestra')),
-                  DataColumn(label: Text('Lote')),
-                  DataColumn(label: Text('Fecha Elaboracion')),
-                  DataColumn(label: Text('Fecha Ingreso')),
-                  DataColumn(label: Text('Acciones')),
+                  DataColumn(
+                      label: Text('Cod Muestra',
+                          style: TextStyle(fontWeight: FontWeight.bold))),
+                  DataColumn(
+                      label: Text('Nombre Muestra',
+                          style: TextStyle(fontWeight: FontWeight.bold))),
+                  DataColumn(
+                      label: Text('Lote',
+                          style: TextStyle(fontWeight: FontWeight.bold))),
+                  DataColumn(
+                      label: Text('Fecha Elaboracion',
+                          style: TextStyle(fontWeight: FontWeight.bold))),
+                  DataColumn(
+                      label: Text('Fecha Ingreso',
+                          style: TextStyle(fontWeight: FontWeight.bold))),
+                  DataColumn(
+                      label: Text('Acciones',
+                          style: TextStyle(fontWeight: FontWeight.bold))),
                 ],
                 rows: filteredMuestras.map((e) {
                   return DataRow(cells: [
-                    //DataCell(Text(e.idMuestra)),
+                    DataCell(Text(e.idMuestra)),
                     DataCell(Text(e.nombreMuestra)),
                     DataCell(Text(e.lote)),
                     DataCell(Text(e.fechaElaboracion)),
@@ -109,22 +121,23 @@ class _DataTableMuestrasState extends State<DataTableMuestras> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         IconButton(
-                            onPressed: () {}, icon: const Icon(Icons.edit)),
+                          onPressed: () {},
+                          icon: const Icon(Icons.edit),
+                        ),
                         IconButton(
-                            onPressed: () {},
-                            icon: const Icon(
-                              Icons.delete,
-                              color: Colors.red,
-                            ))
+                          onPressed: () {},
+                          icon: const Icon(
+                            Icons.delete,
+                            color: Colors.red,
+                          ),
+                        ),
                       ],
                     )),
                   ]);
                 }).toList(),
               ),
             ),
-          ),
-        ],
-      ),
-    );
+          ))
+        ]));
   }
 }

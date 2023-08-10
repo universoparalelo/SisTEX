@@ -27,15 +27,9 @@ class DefaultFirebaseOptions {
       case TargetPlatform.macOS:
         return macos;
       case TargetPlatform.windows:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for windows - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return windows;
       case TargetPlatform.linux:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for linux - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return linux;
       default:
         throw UnsupportedError(
           'DefaultFirebaseOptions are not supported for this platform.',
@@ -49,6 +43,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '582904473207',
     projectId: 'systex-99cff',
     authDomain: 'systex-99cff.firebaseapp.com',
+    databaseURL: 'https://systex-99cff-default-rtdb.firebaseio.com',
     storageBucket: 'systex-99cff.appspot.com',
   );
 
@@ -57,6 +52,7 @@ class DefaultFirebaseOptions {
     appId: '1:582904473207:android:9e1ddc7a191063e1b9c872',
     messagingSenderId: '582904473207',
     projectId: 'systex-99cff',
+    databaseURL: 'https://systex-99cff-default-rtdb.firebaseio.com',
     storageBucket: 'systex-99cff.appspot.com',
   );
 
@@ -65,6 +61,7 @@ class DefaultFirebaseOptions {
     appId: '1:582904473207:ios:0eca8224910cab54b9c872',
     messagingSenderId: '582904473207',
     projectId: 'systex-99cff',
+    databaseURL: 'https://systex-99cff-default-rtdb.firebaseio.com',
     storageBucket: 'systex-99cff.appspot.com',
     iosClientId: '582904473207-jb3kmblej3v6v13dlorjpv3jbq82a9rq.apps.googleusercontent.com',
     iosBundleId: 'com.example.systex',
@@ -75,8 +72,29 @@ class DefaultFirebaseOptions {
     appId: '1:582904473207:ios:0eca8224910cab54b9c872',
     messagingSenderId: '582904473207',
     projectId: 'systex-99cff',
+    databaseURL: 'https://systex-99cff-default-rtdb.firebaseio.com',
     storageBucket: 'systex-99cff.appspot.com',
     iosClientId: '582904473207-jb3kmblej3v6v13dlorjpv3jbq82a9rq.apps.googleusercontent.com',
     iosBundleId: 'com.example.systex',
+  );
+
+  static const FirebaseOptions windows = FirebaseOptions(
+    apiKey: 'AIzaSyDAJDOG2tpK5CNct7eOPf-1ITe3aUScMps',
+    appId: '1:582904473207:web:3a2daa56bd54d115b9c872',
+    messagingSenderId: '582904473207',
+    projectId: 'systex-99cff',
+    authDomain: 'systex-99cff.firebaseapp.com',
+    databaseURL: 'https://systex-99cff-default-rtdb.firebaseio.com',
+    storageBucket: 'systex-99cff.appspot.com',
+  );
+
+  static const FirebaseOptions linux = FirebaseOptions(
+    apiKey: 'AIzaSyDAJDOG2tpK5CNct7eOPf-1ITe3aUScMps',
+    appId: '1:582904473207:web:b71171d2dca33f24b9c872',
+    messagingSenderId: '582904473207',
+    projectId: 'systex-99cff',
+    authDomain: 'systex-99cff.firebaseapp.com',
+    databaseURL: 'https://systex-99cff-default-rtdb.firebaseio.com',
+    storageBucket: 'systex-99cff.appspot.com',
   );
 }

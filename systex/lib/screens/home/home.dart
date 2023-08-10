@@ -1,14 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:socket_io_client/socket_io_client.dart';
 import 'package:systex/models/informes.dart';
 import 'package:systex/models/muestras.dart';
 import 'package:systex/models/productores.dart';
 import 'package:systex/models/solicitudes.dart';
+import 'package:systex/models/solicitudes_aprobadas.dart';
+import 'package:systex/models/solicitudes_rechazadas.dart';
 import 'package:systex/models/tipos_muestras.dart';
-import 'package:systex/screens/home/widgets/datatable_informes.dart';
-import 'package:systex/screens/home/widgets/datatable_muestras.dart';
-import 'package:systex/screens/home/widgets/datatable_producers.dart';
-import 'package:systex/screens/home/widgets/datatable_solicitudes.dart';
+
+import 'package:systex/screens/home/widgets/datatables/datatable_aprobados.dart';
+import 'package:systex/screens/home/widgets/datatables/datatable_informes.dart';
+import 'package:systex/screens/home/widgets/datatables/datatable_muestras.dart';
+import 'package:systex/screens/home/widgets/datatables/datatable_producers.dart';
+import 'package:systex/screens/home/widgets/datatables/datatable_rechazados.dart';
+import 'package:systex/screens/home/widgets/datatables/datatable_solicitudes.dart';
 import 'package:systex/screens/home/widgets/settings.dart';
 import 'package:systex/services/api/http/informesHttp.dart';
 import 'package:systex/services/api/http/muestrasHttp.dart';
@@ -17,19 +23,24 @@ import 'package:systex/services/api/http/solicitudesHttp.dart';
 import 'package:systex/services/api/http/tipomuestrasHttp.dart';
 import 'package:systex/services/api/http/userHttp.dart';
 
+Key refreshKey = UniqueKey();
+List<Productor> productores = [];
+List<Muestras> muestras = [];
+List<Informes> informes = [];
+List<TipoMuestras> tiposMuestras = [];
+List<Solicitudes> solicitudes = [];
+List<SolicitudesRechazadas> solicitudes_rechazadas = [];
+List<SolicitudesAprobadas> solicitudes_aprobadas = [];
+String selectedOption = 'Opción 1';
+
 class Home extends StatefulWidget {
   @override
   _HomeState createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> {
-  String selectedOption = 'Opción 1';
   bool isDataLoaded = false;
-  List<Productor> productores = [];
-  List<Muestras> muestras = [];
-  List<Informes> informes = [];
-  List<TipoMuestras> tiposMuestras = [];
-  List<Solicitudes> solicitudes = [];
+
   void selectOption(String option) {
     setState(() {
       selectedOption = option;
@@ -41,24 +52,43 @@ class _HomeState extends State<Home> {
     print('pr123' + productores.toString());
     muestras = await MuestrasHttp().getAllMuestras();
     informes = await InformesHttp().getInformes();
-    solicitudes = await SolicitudesHttp().getAllSolicitudes();
+    try {
+      solicitudes_aprobadas =
+          await SolicitudesHttp().getAllSolicitudesAprobadas();
+      print('tst' + solicitudes_aprobadas[0].analisisSolicitados);
+    } catch (e) {
+      print('grave errror:' + e.toString());
+    }
+    try {
+      solicitudes_rechazadas =
+          await SolicitudesHttp().getAllSolicitudesRechazadas();
+      print('lengthR' + solicitudes_rechazadas.length.toString());
+    } catch (e) {
+      print('grave errror2:' + e.toString());
+    }
+
+    // print('aprobadasS' + solicitudes_aprobadas.toString());
+    // solicitudes = await SolicitudesHttp().getAllSolicitudes();
     tiposMuestras = await TipoMuestrasHttp().getAllTiposAnalisis();
   }
 
   @override
   void initState() {
+    super.initState();
+
     initData().then((_) {
       setState(() {
         isDataLoaded = true; // Marcamos que los datos han sido cargados
       });
     });
-    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Row(
+        key: refreshKey,
         children: [
           // Primera división - Menú
           Container(
@@ -207,31 +237,42 @@ class _HomeState extends State<Home> {
             ),
           ),
 
-          // Segunda división - Contenido
           Expanded(
-            child: Container(
-              color: Colors.white,
-              padding: const EdgeInsets.all(5.0),
-              child: isDataLoaded
-                  ? (selectedOption == "Opción 1"
-                      ? DataTableProducers(
-                          productores: productores,
-                        )
-                      : selectedOption == "Opción 2"
-                          ? DataTableMuestras(
-                              muestras: muestras,
-                            )
-                          : selectedOption == "Opción 3"
-                              ? DataTableInformes(informes: informes)
-                              : selectedOption == "Pendientes"
-                                  ? DataTableSolicitudes(
-                                      solicitudes: solicitudes)
-                                  : Settings(
-                                      tiposanalisis: tiposMuestras,
-                                    ))
-                  : const Center(
-                      child: CircularProgressIndicator(),
-                    ),
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Container(
+                width: MediaQuery.of(context).size.width * 0.80,
+                color: Colors.white,
+                padding: const EdgeInsets.all(5.0),
+                child: isDataLoaded
+                    ? (selectedOption == "Opción 1"
+                        ? DataTableProducers(
+                            productores: productores,
+                          )
+                        : selectedOption == "Opción 2"
+                            ? DataTableMuestras(
+                                muestras: muestras,
+                              )
+                            : selectedOption == "Opción 3"
+                                ? DataTableInformes(informes: informes)
+                                : selectedOption == "Pendientes"
+                                    ? DataTableSolicitudes(
+                                        solicitudes: solicitudes)
+                                    : selectedOption == "Aprobados"
+                                        ? DataTableSolicitudesAprobadas(
+                                            solicitudes: solicitudes_aprobadas)
+                                        : selectedOption == "Rechazados"
+                                            ? DataTableSolicitudesRechazadas(
+                                                solicitudes:
+                                                    solicitudes_rechazadas,
+                                              )
+                                            : Settings(
+                                                tiposanalisis: tiposMuestras,
+                                              ))
+                    : const Center(
+                        child: CircularProgressIndicator(),
+                      ),
+              ),
             ),
           ),
         ],

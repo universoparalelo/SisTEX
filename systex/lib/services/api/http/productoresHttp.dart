@@ -41,8 +41,22 @@ class ProductoresHttp implements RepositoryProductores {
   }
 
   @override
-  Future<List<Productor>> searchProductor(String nameProductor) {
-    // TODO: implement searchProductor
-    throw UnimplementedError();
+  Future<List<Productor>> searchProductor(String nameProductor) async {
+    String url = pathUrlBase + 'api/productores/$nameProductor';
+    var resp = await http.get(Uri.parse(url));
+    List<Productor> productores = [];
+    if (resp.statusCode == 200) {
+      // La solicitud fue exitosa, entonces decodificamos la respuesta JSON
+      List<dynamic> responseData = jsonDecode(resp.body);
+
+      // Mapeamos los datos JSON a objetos Productor y los almacenamos en una lista
+      List<Productor> _productores =
+          responseData.map((item) => Productor.fromJson(item)).toList();
+
+      // Devolvemos la lista de productores
+      productores = _productores;
+    }
+    print('prodw' + productores[0].direccionElaboracion);
+    return productores;
   }
 }
