@@ -19,7 +19,7 @@
   
 </head>
 <body>
-  <form id="formulario" action="mailto:cmartinrodich@gmail.com" method="post">
+  <form id="formulario" action="mailto">
     <div id="seccion1" class="seccion step active">
       <h2>Sección 1: Datos personales</h2>
 
@@ -56,7 +56,7 @@
 
     <div id="seccion2" class="seccion step seccion2">
       <h2>Sección 2: Datos de la muestra</h2>
-      
+
       <div id="elementosSeccion2" class="elementosSeccion2" name="elementosSeccion2">
       </div>
 
@@ -115,7 +115,7 @@
 
       <div class="botones">
         <button id="btnAnterior5" type="button" onclick="prevStep(2)">Anterior</button>
-        <button id="btnEnviar" type="submit" onclick="nextStep(4)">Enviar</button>
+        <button id="btnEnviar" type="submit" onclick="nextStep(4); validarFormulario()">Enviar</button>
       </div>
     </div>
 

@@ -3,7 +3,6 @@
 
 const API_URL = 'http://localhost:8000';
 const xhr = new XMLHttpRequest();
-var contador = 0;
 
 function onRequestHandler(){
     if (this.readyState === 4 && this.status === 200){
@@ -95,7 +94,7 @@ function nextStep(step) {
 function prevStep(step) {
     // Chequear que si vuelve de la seccion 2 a la 1 no haya errores en la cantidad de divs clonados
     if (step == 0){
-        let elementoPadre = document.getElementById('secciones-clonadas')
+        let elementoPadre = document.getElementById('elementosSeccion2')
 
         while (elementoPadre.firstChild) {
             elementoPadre.removeChild(elementoPadre.firstChild);
@@ -123,36 +122,66 @@ function validateFields(step){
             //     document.getElementById("dni").value===''){
             //         return false
             //     } else return true
+
+            return true;
             
-            return true
         case 1:
-            // if (document.getElementById("denominacionMuestra").value === ''|
-            //     document.getElementById("marca").value === ''|
-            //     document.getElementById("razonSocial").value === ''|
-            //     document.getElementById("direccion").value === ''|
-            //     (document.getElementById("checkboxLote").checked === false && document.getElementById("lote").value === '')|
-            //     document.getElementById("lote").value === ''|
-            //     document.getElementById("fechaElaboracion").value ===''|
-            //     document.getElementById("fechaVencimiento").value ===''|
-            //     document.getElementById("fechaElaboracion").value > document.getElementById("fechaVencimiento").value){
-            //         return false;
-            //     } else {
-            //         xhr.addEventListener("load", onRequestHandler);
-            //         xhr.open('GET', `${API_URL}/api/tipomuestras`);
-            //         xhr.send();
-            //         return true;
+            // let banderaSeccion2 = true;
+            // cantidadProductos = document.getElementById('cantidadProducto').value;
+            // console.log(document.querySelector(`.denominacionMuestra-0`).value)
+
+            // for (let i=0; i<cantidadProductos.length; i++){
+            //     if (document.querySelector(`.denominacionMuestra-${i}`).value === ''|
+            //     document.querySelector(`.marca-${i}`).value === ''|
+            //     document.querySelector(`.direccion-${i}`).value === ''|
+            //     document.querySelector(`.fechaElaboracion-${i}`).value ===''|
+            //     document.querySelector(`.fechaVencimiento-${i}`).value ===''|
+            //     document.querySelector(`.fechaElaboracion-${i}`).value > document.querySelector(`.fechaVencimiento-${i}`).value){
+            //         banderaSeccion2 = false;
             //     }
-            return true
+            // }
+
+            // if (banderaSeccion2){
+            //     return true;
+            // } else{
+            //     return false;
+            // }
+
+            return true;
+            
         case 2:
             
             cargarMuestras();
             return true;
+
         case 3:
             // if (document.getElementById("comprobante").value === ''){
             //     return false;
             // } else return true;
-            
-            return true
+            // miFormulario = document.getElementById('formulario');
+            // validarFormulario()
+
+            // function validarFormulario() {
+            //     console.log('Estoy dentro del formulario')
+
+            //     if (!miFormulario.checkValidity()) {
+            //         Swal.fire({
+            //             icon: 'error',
+            //             title: 'Oops...',
+            //             text: 'Faltaron campos por rellenar',
+            //             footer: '<a href="">¿Por qué tengo este problema?</a>'
+            //         })
+            //     } else {
+            //         Swal.fire({
+            //             position: 'top',
+            //             icon: 'success',
+            //             title: 'Formulario enviado correctamente',
+            //             showConfirmButton: false,
+            //             timer: 1500
+            //         })
+            //     }
+            // };
+            return false;
     }
 }
 
@@ -235,6 +264,8 @@ function repetirSeccion(){
     }
     contenedorSeccion2.innerHTML = textoSeccion2;
 }
+
+var contador = 0;
 
 function repetirSeccion3(){
     // const seccionOriginal = document.getElementById("elementosSeccion3");
@@ -379,8 +410,13 @@ function cargarMuestras(){
 
         // SECCION 3    
         let j = 0;
+        let k = 0;
         while (data[j].tipo_muestra !== 'Completo'){
-            muestras[i].analisisMicrobiologico[j] = document.querySelector(`.${data[j].id_tipo_muestra}-${i}`).checked
+            if (document.querySelector(`.${data[j].id_tipo_muestra}-${i}`).checked){
+                muestras[i].analisisMicrobiologico[k] = data[j].tipo_muestra;
+                k += 1;
+            }
+            
             j += 1;
         }
 
@@ -397,16 +433,68 @@ function cargarMuestras(){
 }
 
 function convertirJSON(muestra){
-     return {
-        "nombre_muestra": muestra.denominacion,
-        "lote": muestra.lote,
-        "nombre_productor": muestra.nombre,
-        "fecha_elaboracion": muestra.fechaElaboracion,
-        "fecha_ingreso": muestra.fechaIngreso,
-        "tipo_muestra": muestra.marca,
-        "estilo": muestra.estilo
+    let muestraJson = {}
+
+    muestraJson["nombre_y_apellido"] = muestra.nombre + " " + muestra.apellido;
+    muestraJson["dni"] = muestra.dni;
+    muestraJson["analisis_solicitados"] = [];
+
+    let i=0;
+    for (i; i<muestra.analisisMicrobiologico.length; i++){
+        muestraJson["analisis_solicitados"][i] = {
+            "nombre_analisis": "Microbiológico",
+            "parametros": {
+            "nombre_parametros": muestra.analisisMicrobiologico[i]
+            }
+        }
     }
+
+    if (muestra.analisisFisicoquimico){
+        
+        muestraJson["analisis_solicitados"][i] = {
+            "nombre_analisis": "Fisicoquimico",
+            "parametros": {
+            "nombre_parametros": "---"
+            }
+        }
+    } 
+    if (muestra.determinacionNutricional){
+        i += 1;
+        muestraJson["analisis_solicitados"][i] = {
+            "nombre_analisis": "Determinacion Nutricional",
+            "parametros": {
+            "nombre_parametros": "---"
+            }
+        }
+    } 
+    if (muestra.azucaresTotales){
+        i += 1;
+        muestraJson["analisis_solicitados"][i] = {
+            "nombre_analisis": "Azucares Totales",
+            "parametros": {
+            "nombre_parametros": "---"
+            }
+        }
+    }  
+
+    muestraJson["nombre_muestra"] = muestra.denominacion;
+    muestraJson["estilo"] = muestra.estilo;
+    muestraJson["nro_telefono"] = muestra.telefono;
+    // muestra["producto"] = muestra.producto;
+    muestraJson["lote"] = muestra.lote;
+    muestraJson["precio_total"] = '---';
+    muestraJson["razon_analisis"] = muestra.razonAnalisis;
+    muestraJson["temperatura_almacenamiento "] = muestra.temperatura;
+    muestraJson["fecha_elaboracion"] = muestra.fechaElaboracion;
+    muestraJson["fecha_vencimiento"] = muestra.fechaVencimiento;
+    muestraJson["direccion_elaboracion"] = muestra.direccion;
+    muestraJson["localidad"] = muestra.localidad;
+    muestraJson["provincia"] = muestra.provincia;
+    muestraJson["comprobantePago"] = muestra.comprobante;
+    
+    return muestraJson;
 }
+
 
 
 
