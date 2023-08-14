@@ -122,13 +122,12 @@ function validateFields(step){
             //     document.getElementById("dni").value===''){
             //         return false
             //     } else return true
-
             return true;
+
             
         case 1:
             // let banderaSeccion2 = true;
             // cantidadProductos = document.getElementById('cantidadProducto').value;
-            // console.log(document.querySelector(`.denominacionMuestra-0`).value)
 
             // for (let i=0; i<cantidadProductos.length; i++){
             //     if (document.querySelector(`.denominacionMuestra-${i}`).value === ''|
@@ -140,14 +139,9 @@ function validateFields(step){
             //         banderaSeccion2 = false;
             //     }
             // }
-
-            // if (banderaSeccion2){
-            //     return true;
-            // } else{
-            //     return false;
-            // }
-
+            // return banderaSeccion2;
             return true;
+
             
         case 2:
             
@@ -198,6 +192,13 @@ function repetirSeccion(){
         <hr style="margin: 15px 0;">
         <label for="denominacionMuestra">Denominacion de la muestra:*</label>
         <input type="text" class="denominacionMuestra-${i}" name="denominacionMuestra" required><br>
+
+        <label>Producto:*</label>
+        <select class="producto-${i}" name="producto" required>
+            <option value="">Seleccionar</option>
+            <option value="Cerveza">Cerveza</option>
+            <option value="Fernet">Fernet</option>
+        </select><br>
 
         <label for="marca">Marca:</label>
         <input type="text" class="marca-${i}" name="marca"><br>
@@ -371,6 +372,7 @@ function cargarMuestras(){
 
         //SECCION 2
         muestras[i].denominacion = document.querySelector(`.denominacionMuestra-${i}`).value;
+        muestras[i].producto = document.querySelector(`.producto-${i}`).value;
         muestras[i].marca = document.querySelector(`.marca-${i}`).value;
         muestras[i].razonSocial = document.querySelector(`.razonSocial-${i}`).value;
         muestras[i].direccion = document.querySelector(`.direccion-${i}`).value;
@@ -411,9 +413,13 @@ function cargarMuestras(){
         // SECCION 3    
         let j = 0;
         let k = 0;
+        muestras[i].precioTotal = 0;
+
         while (data[j].tipo_muestra !== 'Completo'){
             if (document.querySelector(`.${data[j].id_tipo_muestra}-${i}`).checked){
                 muestras[i].analisisMicrobiologico[k] = data[j].tipo_muestra;
+                muestras[i].precioTotal += parseInt(data[j].precio);
+                
                 k += 1;
             }
             
@@ -421,13 +427,22 @@ function cargarMuestras(){
         }
 
         muestras[i].analisisFisicoquimico = document.querySelector(`.${data[j].id_tipo_muestra}-${i}`).checked;
+        if (muestras[i].analisisFisicoquimico){
+            muestras[i].precioTotal += parseInt(data[j].precio);
+        }
         muestras[i].determinacionNutricional = document.querySelector(`.${data[j+1].id_tipo_muestra}-${i}`).checked;
-        muestras[i].azucaresTotales = document.querySelector(`.${data[j+2].id_tipo_muestra}-${i}`).checked; 
+        if (muestras[i].determinacionNutricional){
+            muestras[i].precioTotal += parseInt(data[j+1].precio);
+        }
+        muestras[i].azucaresTotales = document.querySelector(`.${data[j+2].id_tipo_muestra}-${i}`).checked;
+        if (muestras[i].azucaresTotales){
+            muestras[i].precioTotal += parseInt(data[j+2].precio);
+        } 
 
         // SECCION 4
         muestras[i].comprobante = document.getElementById('comprobante').value
         
-        muestras[i].hola();
+        // muestras[i].hola();
         console.log(convertirJSON(muestras[i]));
     }
 }
@@ -480,9 +495,9 @@ function convertirJSON(muestra){
     muestraJson["nombre_muestra"] = muestra.denominacion;
     muestraJson["estilo"] = muestra.estilo;
     muestraJson["nro_telefono"] = muestra.telefono;
-    // muestra["producto"] = muestra.producto;
+    muestraJson["producto"] = muestra.producto;
     muestraJson["lote"] = muestra.lote;
-    muestraJson["precio_total"] = '---';
+    muestraJson["precio_total"] = muestra.precioTotal;
     muestraJson["razon_analisis"] = muestra.razonAnalisis;
     muestraJson["temperatura_almacenamiento "] = muestra.temperatura;
     muestraJson["fecha_elaboracion"] = muestra.fechaElaboracion;
