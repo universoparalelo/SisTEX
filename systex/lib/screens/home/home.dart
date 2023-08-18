@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:socket_io_client/socket_io_client.dart';
+
 import 'package:systex/models/informes.dart';
 import 'package:systex/models/muestras.dart';
 import 'package:systex/models/productores.dart';
@@ -56,7 +56,6 @@ class _HomeState extends State<Home> {
     try {
       solicitudes_aprobadas =
           await SolicitudesHttp().getAllSolicitudesAprobadas();
-      print('tst' + solicitudes_aprobadas[0].analisisSolicitados);
     } catch (e) {
       print('grave errror:' + e.toString());
     }
@@ -215,6 +214,19 @@ class _HomeState extends State<Home> {
                 ),
                 ListTile(
                   leading: const Icon(
+                    Icons.person,
+                    color: Colors.white,
+                    size: 20.0,
+                  ),
+                  title: const Text(
+                    'Personal',
+                    style: TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.w500),
+                  ),
+                  onTap: () => selectOption('Personal'),
+                ),
+                ListTile(
+                  leading: const Icon(
                     Icons.settings,
                     color: Colors.white,
                   ),
@@ -223,6 +235,7 @@ class _HomeState extends State<Home> {
                           color: Colors.white, fontWeight: FontWeight.w500)),
                   onTap: () => selectOption('Opción 4'),
                 ),
+
                 const Spacer(),
                 ListTile(
                   leading: const Icon(
@@ -268,9 +281,14 @@ class _HomeState extends State<Home> {
                                                 solicitudes:
                                                     solicitudes_rechazadas,
                                               )
-                                            : Settings(
-                                                tiposanalisis: tiposMuestras,
-                                              ))
+                                            : selectedOption == "Personal"
+                                                ? DataTablePersonal()
+                                                : selectedOption == "Opción 4"
+                                                    ? Settings(
+                                                        tiposanalisis:
+                                                            tiposMuestras,
+                                                      )
+                                                    : null)
                     : const Center(
                         child: CircularProgressIndicator(),
                       ),

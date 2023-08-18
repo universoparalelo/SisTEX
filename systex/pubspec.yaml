@@ -40,8 +40,9 @@ dependencies:
   firebase_auth:
   firebase_database:
   firebase_core:
-  socket_io_client: ^1.0.1
+  #socket_io_client: ^1.0.1
   url_launcher:
+  im_stepper: ^1.0.1+1
   intl:
   path:
   universal_html:

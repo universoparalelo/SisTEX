@@ -158,4 +158,20 @@ class SolicitudesHttp implements SolicitudesRepository {
         FirebaseDatabase.instance.ref().child('solicitudes');
     yield* ref.onValue;
   }
+
+  @override
+  Future<String> updateStateApprovedSolicitud(Map<String, dynamic> data) async {
+    String url = pathUrlBase + 'api/solicitudes/aprobadas/put';
+    print('idQ' + data["id_solicitud"]);
+    var resp = await http.put(
+      Uri.parse(url),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: jsonEncode(data),
+    );
+    if (resp.statusCode == 200) {}
+    print('respuesta: ' + resp.statusCode.toString());
+    return resp.body;
+  }
 }

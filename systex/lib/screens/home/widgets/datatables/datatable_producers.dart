@@ -97,19 +97,22 @@ class _DataTableProducersState extends State<DataTableProducers> {
                 fit: BoxFit.fitWidth,
                 child: DataTable(
                   columnSpacing:
-                      Responsive().calculateColumnSpacing(context, 5),
+                      Responsive().calculateColumnSpacing(context, 6),
                   columns: const [
                     DataColumn(
                         label: Text('Nombre y Apellido',
                             style: TextStyle(fontWeight: FontWeight.bold))),
                     DataColumn(
-                        label: Text('Dir. Elaboracion',
+                        label: Text('Direccion',
                             style: TextStyle(fontWeight: FontWeight.bold))),
                     DataColumn(
                         label: Text('Localidad',
                             style: TextStyle(fontWeight: FontWeight.bold))),
                     DataColumn(
                         label: Text('Provincia',
+                            style: TextStyle(fontWeight: FontWeight.bold))),
+                    DataColumn(
+                        label: Text('TipoSolicitante',
                             style: TextStyle(fontWeight: FontWeight.bold))),
                     DataColumn(
                         label: Text('Acciones',
@@ -121,6 +124,7 @@ class _DataTableProducersState extends State<DataTableProducers> {
                       DataCell(Text(e.direccionElaboracion)),
                       DataCell(Text(e.localidad)),
                       DataCell(Text(e.provincia)),
+                      DataCell(Text(e.tipoSolicitante)),
                       DataCell(Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [

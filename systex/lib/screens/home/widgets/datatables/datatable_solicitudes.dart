@@ -126,20 +126,21 @@ class _DataTableSolicitudesState extends State<DataTableSolicitudes> {
                           break;
                         }
                       }
-
+                      List analisisSolicitados = [];
                       mapaInterno.forEach((clave, submapa) {
                         print("Clave: $clave");
                         print("Submapa: $submapa");
                         if (submapa is Map) {
                           print('es map');
+                          if (submapa["analisis_solicitados"] is List) {
+                            analisisSolicitados =
+                                submapa["analisis_solicitados"];
+                            print('mapa145' + analisisSolicitados.toString());
+                          }
                         } else {
                           print('no es mapa');
                         }
 
-                        print('submap7' +
-                            submapa["analisis_solicitados"][1].toString());
-                        List analisisSolicitados =
-                            submapa["analisis_solicitados"];
                         for (int i = 0;
                             i <= analisisSolicitados.length - 1;
                             i++) {
@@ -173,7 +174,7 @@ class _DataTableSolicitudesState extends State<DataTableSolicitudes> {
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold))),
                               DataColumn(
-                                  label: Text('Productor',
+                                  label: Text('Solicitante',
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold))),
                               DataColumn(
@@ -202,6 +203,15 @@ class _DataTableSolicitudesState extends State<DataTableSolicitudes> {
                                         builder: (ctx) {
                                           return PopUpMoreInfo(
                                             producto: e.producto,
+                                            cuitEmpresa: e.cuitEmpresa,
+                                            direccionEmpresa:
+                                                e.direccionEmpresa,
+                                            localidadEmpresa:
+                                                e.localidadEmpresa,
+                                            presentacion: e.presentacion,
+                                            provinciaEmpresa:
+                                                e.provinciaEmpresa,
+                                            tipoSolicitante: e.tipoSolicitante,
                                             analisisSolicitados:
                                                 e.analisisSolicitados,
                                             tempAlmacenamiento:

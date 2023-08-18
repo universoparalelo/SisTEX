@@ -2,6 +2,8 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:systex/models/solicitudes.dart';
 
 abstract class SolicitudesRepository {
+  Future<String> updateStateApprovedSolicitud(Map<String, dynamic> data);
+
   Stream<DatabaseEvent> getSolicitudesPendientes();
 
   //obtiene todas las solicitudes pendientes

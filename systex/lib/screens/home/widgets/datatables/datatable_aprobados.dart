@@ -28,6 +28,8 @@ class _DataTableSolicitudesAprobadasState
     filteredSolicitudes =
         widget.solicitudes; // Inicialmente mostramos todos los elementos
 
+    print('flt' + filteredSolicitudes[0].toString());
+
     // Calcular el ancho disponible en el dispositivo
     WidgetsBinding.instance.addPostFrameCallback((_) {
       double availableWidth = MediaQuery.of(context).size.width;
@@ -87,13 +89,15 @@ class _DataTableSolicitudesAprobadasState
                         label: Text('FechaSolicitud',
                             style: TextStyle(fontWeight: FontWeight.bold))),
                     DataColumn(
-                        label: Text('Productor',
+                        label: Text('Solicitante',
                             style: TextStyle(fontWeight: FontWeight.bold))),
                     DataColumn(
                         label: Text('Estado',
                             style: TextStyle(fontWeight: FontWeight.bold))),
                     //  DataColumn(label: Text('ComprobantePago')),
-                    DataColumn(label: Text('AnalisisSolicitados')),
+                    DataColumn(
+                        label: Text('AnalisisSolicitados',
+                            style: TextStyle(fontWeight: FontWeight.bold))),
                   ],
                   rows: filteredSolicitudes.map((e) {
                     return DataRow(cells: [
@@ -104,6 +108,12 @@ class _DataTableSolicitudesAprobadasState
                               builder: (ctx) {
                                 return PopUpMoreInfo(
                                   producto: e.producto,
+                                  cuitEmpresa: e.cuitEmpresa,
+                                  direccionEmpresa: e.direccionEmpresa,
+                                  localidadEmpresa: e.localidadEmpresa,
+                                  presentacion: e.presentacion,
+                                  provinciaEmpresa: e.provinciaEmpresa,
+                                  tipoSolicitante: e.tipoSolicitante,
                                   tempAlmacenamiento:
                                       e.temperaturaAlmacenamiento,
                                   nroTelefono: e.nroTelefono,

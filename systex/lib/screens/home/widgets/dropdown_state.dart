@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:systex/models/solicitudes_aprobadas.dart';
 import 'package:systex/screens/home/widgets/popups/dialog_pdf.dart';
+import 'package:systex/services/api/http/solicitudesHttp.dart';
 
 class DropdownStateAprobados extends StatefulWidget {
   //String state;
@@ -32,10 +33,16 @@ class _DropdownStateAprobadosState extends State<DropdownStateAprobados> {
       items: states.map((e) {
         return DropdownMenuItem(child: Text(e), value: e);
       }).toList(),
-      onChanged: (val) {
+      onChanged: (val) async {
         setState(() {
           selectedState = val as String;
         });
+        Map<String, dynamic> data = {};
+        data["id_solicitud"] = widget.solicitudes.idSolicitud;
+        data["Estado"] = selectedState;
+        await SolicitudesHttp()
+            .updateStateApprovedSolicitud(data)
+            .then((value) {});
         if (selectedState == "Finalizado") {
           showDialog(
               context: context,

@@ -14,20 +14,34 @@ class Solicitudes {
   String temperaturaAlmacenamiento;
   String fechaElaboracion;
   String fechaVencimiento;
+  String presentacion;
   String parametrosSolicitados;
   // String estado;
   String direccionElaboracion;
   String localidad;
   String provincia;
   String urlComprobantePago;
+  String cuitEmpresa;
+  String nombreEmpresa;
+  String direccionEmpresa;
+  String localidadEmpresa;
+  String provinciaEmpresa;
+  String tipoSolicitante;
 
   Solicitudes({
     required this.idSolicitud,
     required this.fechaSolicitud,
     required this.dni,
+    required this.tipoSolicitante,
+    required this.cuitEmpresa,
+    required this.nombreEmpresa,
+    required this.direccionEmpresa,
+    required this.localidadEmpresa,
+    required this.provinciaEmpresa,
     required this.nombre_y_apellido,
     required this.analisisSolicitados,
     required this.nombreMuestra,
+    required this.presentacion,
     required this.estilo,
     required this.nroTelefono,
     required this.producto,
@@ -50,6 +64,13 @@ class Solicitudes {
     print('kts' + json["analisis_solicitados"]);
     return Solicitudes(
       idSolicitud: json["id_solicitud"],
+      tipoSolicitante: json["tipoSolicitante"],
+      cuitEmpresa: json["cuit_empresa"],
+      presentacion: json["presentacion"],
+      direccionEmpresa: json["direccion_empresa"],
+      localidadEmpresa: json["localidad_empresa"],
+      nombreEmpresa: json["nombre_empresa"],
+      provinciaEmpresa: json["provincia_empresa"],
       fechaSolicitud: json["fecha_solicitud"],
       dni: json["dni"],
       nombre_y_apellido: json["nombre_y_apellido"],

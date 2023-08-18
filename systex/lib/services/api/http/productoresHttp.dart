@@ -50,7 +50,7 @@ class ProductoresHttp implements RepositoryProductores {
     if (resp.statusCode == 200) {
       // La solicitud fue exitosa, entonces decodificamos la respuesta JSON
       List<dynamic> responseData = jsonDecode(resp.body);
-
+      print('jota1' + responseData.toString());
       // Mapeamos los datos JSON a objetos Productor y los almacenamos en una lista
       List<Productor> _productores =
           responseData.map((item) => Productor.fromJson(item)).toList();

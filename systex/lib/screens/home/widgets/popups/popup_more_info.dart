@@ -6,6 +6,12 @@ class PopUpMoreInfo extends StatefulWidget {
   String razonSocial;
   String provincia;
   String localidad;
+  String cuitEmpresa;
+  String presentacion;
+  String localidadEmpresa;
+  String direccionEmpresa;
+  String provinciaEmpresa;
+  String tipoSolicitante;
   String dirElaboracion;
   String estilo;
   String producto;
@@ -20,6 +26,12 @@ class PopUpMoreInfo extends StatefulWidget {
       required this.nroTelefono,
       required this.razonSocial,
       required this.provincia,
+      required this.tipoSolicitante,
+      required this.localidadEmpresa,
+      required this.cuitEmpresa,
+      required this.presentacion,
+      required this.provinciaEmpresa,
+      required this.direccionEmpresa,
       required this.localidad,
       required this.producto,
       required this.dirElaboracion,
@@ -73,6 +85,18 @@ class _PopUpMoreInfoState extends State<PopUpMoreInfo> {
                 subtitle: Text(widget.fechaVencimiento)),
             ListTile(
                 title: const Text('Producto'), subtitle: Text(widget.producto)),
+            ListTile(
+                title: const Text('TipoSolicitante'),
+                subtitle: Text(widget.tipoSolicitante)),
+            ListTile(
+                title: const Text('CUIT Empresa'),
+                subtitle: Text(widget.cuitEmpresa)),
+            ListTile(
+                title: const Text('Direccion Empresa'),
+                subtitle: Text(widget.direccionEmpresa)),
+            ListTile(
+                title: const Text('Provincia Empresa'),
+                subtitle: Text(widget.provinciaEmpresa)),
           ],
         ),
       ),

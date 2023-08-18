@@ -24,8 +24,8 @@ class _SettingsState extends State<Settings> {
     muestrasResto = widget.tiposanalisis
         .where((element) =>
             element.analisis == "Azúcares" ||
-            element.analisis == "Nutricional" ||
-            element.analisis == "Fisicoquímico")
+            element.analisis == "Nutricionales" ||
+            element.analisis == "Fisicoquimico")
         .toList();
   }
 

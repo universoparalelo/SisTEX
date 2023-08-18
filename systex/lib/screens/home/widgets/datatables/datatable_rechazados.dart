@@ -114,7 +114,7 @@ class _DataTableSolicitudesRechazadasState
                         label: Text('FechaSolicitud',
                             style: TextStyle(fontWeight: FontWeight.bold))),
                     DataColumn(
-                        label: Text('Productor',
+                        label: Text('Solicitante',
                             style: TextStyle(fontWeight: FontWeight.bold))),
                     DataColumn(
                         label: Text('Motivo',
@@ -139,6 +139,12 @@ class _DataTableSolicitudesRechazadasState
                                 return PopUpMoreInfo(
                                   producto: e.producto,
                                   analisisSolicitados: e.analisisSolicitados,
+                                  cuitEmpresa: e.cuitEmpresa,
+                                  direccionEmpresa: e.direccionEmpresa,
+                                  localidadEmpresa: e.localidadEmpresa,
+                                  presentacion: e.presentacion,
+                                  provinciaEmpresa: e.provinciaEmpresa,
+                                  tipoSolicitante: e.tipoSolicitante,
                                   tempAlmacenamiento:
                                       e.temperaturaAlmacenamiento,
                                   nroTelefono: e.nroTelefono,
