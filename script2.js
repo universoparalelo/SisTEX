@@ -179,13 +179,12 @@ function validateFields(step){
     }
 }
 
-function repetirSeccion(){
+function repetirSeccion() {
     cantidadProductos = document.getElementById('cantidadProducto').value;
     // Obtenemos la cantidad de productos seleccionada por el usuario
-    
-    const contenedorSeccion2 = document.getElementById("elementosSeccion2");
-    let textoSeccion2 = ''
 
+    const contenedorSeccion2 = document.getElementById("elementosSeccion2");
+    let textoSeccion2 = '';
 
     for (let i = 0; i < cantidadProductos; i++) {
         textoSeccion2 += `
@@ -193,37 +192,46 @@ function repetirSeccion(){
         <label for="denominacionMuestra">Denominacion de la muestra:*</label>
         <input type="text" class="denominacionMuestra-${i}" name="denominacionMuestra" required><br>
 
+        <!-- Dentro del bucle en la función repetirSeccion -->
         <label>Producto:*</label>
-        <select class="producto-${i}" name="producto" required>
+        <select class="producto-${i}" name="producto" required onchange="mostrarEstilo(this, ${i})">
             <option value="">Seleccionar</option>
             <option value="Cerveza">Cerveza</option>
             <option value="Fernet">Fernet</option>
+            <option value="Pastas">Pastas</option>
+            <option value="Helados">Helados</option>
+            <option value="Gaseosa">Gaseosa</option>
         </select><br>
+
+        <div style="display: flex; align-items: center;"> <!-- Contenedor para alinear los elementos -->
+            <label for="estilos" id="labelEstilo-${i}" style="display:none; margin-right: 10px;">Estilos:</label>
+            <input type="text" class="estilos-${i}" name="estilos" id="inputEstilo-${i}" style="display:none;"><br>
+        </div>
 
         <label for="marca">Marca:</label>
         <input type="text" class="marca-${i}" name="marca"><br>
 
         <label for="razonSocial">Razon social:* </label>
         <input type="text" class="razonSocial-${i}" name="razonSocial" required><br>
-        
+
         <label for="direccion">Dirección del establecimiento:* </label>
         <input type="text" class="direccion-${i}" name="direccion" required><br>
 
-        <label for="estilos">Estilos:</label>
-        <input type="text" class="estilos-${i}" name="estilos"><br>
-
-        <label for="lote">Lote:*</label>
-        <input type="text" class="lote-${i}" name="lote">
-        <label for="checkboxLote">No tengo lote</label>
-        <input type="checkbox" class="checkboxLote-${i}" name="noTieneLote" onclick="ocultarLote('lote-${i}', 'checkboxLote-${i}')"><br>
+        <!-- Nueva funcionalidad para Lote -->
+        <div style="display: flex; align-items: center; margin-bottom: 5px;">
+            <label for="lote-${i}" id="labelLote-${i}" style="display:none; margin-right: 10px;">Lote:*</label>
+            <input type="text" class="lote-${i}" name="lote" style="display:none;">
+            <label for="checkboxLote-${i}" style="display:none; margin-left: 10px;">No tengo lote</label>
+            <input type="checkbox" class="checkboxLote-${i}" name="noTieneLote" style="display:none;" onclick="ocultarLote('lote-${i}', 'checkboxLote-${i}')">
+        </div>
 
         <label for="fechaElaboracion">Fecha de elaboración:*</label>
         <input type="date" class="fechaElaboracion-${i}" name="fechaElaboracion" required><br>
 
         <label for="fechaVencimiento">Fecha de vencimiento:*</label>
         <input type="date" class="fechaVencimiento-${i}" name="fechaVencimiento" required><br>
-        
-        <label for="lapso">Lapso (en dias): </label>
+
+        <label for="lapso">Lapso (en días): </label>
         <input type="text" class="lapso-${i}" name="lapso"><br><br>
 
         <label>Razón por la cual necesita realizar los análisis:*</label>
@@ -263,8 +271,37 @@ function repetirSeccion(){
         </div>
         `
     }
+
     contenedorSeccion2.innerHTML = textoSeccion2;
 }
+
+// Función para mostrar u ocultar el label de Estilos según la opción seleccionada
+function mostrarEstilo(select, index) {
+    const labelEstilo = document.getElementById(`labelEstilo-${index}`);
+    const inputEstilo = document.getElementById(`inputEstilo-${index}`);
+    const labelLote = document.getElementById(`labelLote-${index}`);
+    const inputLote = document.getElementById(`inputLote-${index}`);
+    const checkboxLote = document.getElementById(`checkboxLote-${index}`);
+
+    if (select.value === "Cerveza") {
+        labelEstilo.style.display = "inline-block";
+        inputEstilo.style.display = "inline-block";
+
+        // Nueva funcionalidad para mostrar Lote y checkbox
+        labelLote.style.display = "inline-block";
+        inputLote.style.display = "inline-block";
+        checkboxLote.style.display = "inline-block";
+    } else {
+        labelEstilo.style.display = "none";
+        inputEstilo.style.display = "none";
+
+        // Nueva funcionalidad para ocultar Lote y checkbox
+        labelLote.style.display = "none";
+        inputLote.style.display = "none";
+        checkboxLote.style.display = "none";
+    }
+}
+
 
 var contador = 0;
 
