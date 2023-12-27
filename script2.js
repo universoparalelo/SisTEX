@@ -178,7 +178,6 @@ function validateFields(step){
             return false;
     }
 }
-
 function repetirSeccion() {
     cantidadProductos = document.getElementById('cantidadProducto').value;
     // Obtenemos la cantidad de productos seleccionada por el usuario
@@ -194,7 +193,7 @@ function repetirSeccion() {
 
         <!-- Dentro del bucle en la función repetirSeccion -->
         <label>Producto:*</label>
-        <select class="producto-${i}" name="producto" required onchange="mostrarEstilo(this, ${i})">
+        <select class="producto-${i}" name="producto" required onchange="habilitarCampos(this, ${i});">
             <option value="">Seleccionar</option>
             <option value="Cerveza">Cerveza</option>
             <option value="Fernet">Fernet</option>
@@ -203,27 +202,19 @@ function repetirSeccion() {
             <option value="Gaseosa">Gaseosa</option>
         </select><br>
 
-        <div style="display: flex; align-items: center;"> <!-- Contenedor para alinear los elementos -->
-            <label for="estilos" id="labelEstilo-${i}" style="display:none; margin-right: 10px;">Estilos:</label>
-            <input type="text" class="estilos-${i}" name="estilos" id="inputEstilo-${i}" style="display:none;"><br>
-        </div>
-
+       
+        <label for="estilos" id="labelEstilo-${i}" style="margin-right: 10px;">Estilo:</label>
+        <input type="text" class="estilos-${i}" name="estilos" id="inputEstilo-${i}" readOnly><br>
         <label for="marca">Marca:</label>
         <input type="text" class="marca-${i}" name="marca"><br>
 
-        <label for="razonSocial">Razon social:* </label>
-        <input type="text" class="razonSocial-${i}" name="razonSocial" required><br>
+        
 
-        <label for="direccion">Dirección del establecimiento:* </label>
-        <input type="text" class="direccion-${i}" name="direccion" required><br>
-
-        <!-- Nueva funcionalidad para Lote -->
-        <div style="display: flex; align-items: center; margin-bottom: 5px;">
-            <label for="lote-${i}" id="labelLote-${i}" style="display:none; margin-right: 10px;">Lote:*</label>
-            <input type="text" class="lote-${i}" name="lote" style="display:none;">
-            <label for="checkboxLote-${i}" style="display:none; margin-left: 10px;">No tengo lote</label>
-            <input type="checkbox" class="checkboxLote-${i}" name="noTieneLote" style="display:none;" onclick="ocultarLote('lote-${i}', 'checkboxLote-${i}')">
-        </div>
+        <label for="lote-${i}" id="labelLote-${i}" style="margin-right: 10px;">Lote:*</label>
+        <input type="text" class="lote-${i}" name="lote" disabled>
+        
+        <label for="checkboxLote-${i}" style="margin-left: 10px; vertical-align: middle;">No tengo lote</label>
+        <input type="checkbox" class="checkboxLote-${i}" name="noTieneLote" onclick="ocultarLote('lote-${i}', 'checkboxLote-${i}')"><br>
 
         <label for="fechaElaboracion">Fecha de elaboración:*</label>
         <input type="date" class="fechaElaboracion-${i}" name="fechaElaboracion" required><br>
@@ -274,32 +265,17 @@ function repetirSeccion() {
 
     contenedorSeccion2.innerHTML = textoSeccion2;
 }
-
-// Función para mostrar u ocultar el label de Estilos según la opción seleccionada
-function mostrarEstilo(select, index) {
-    const labelEstilo = document.getElementById(`labelEstilo-${index}`);
+function habilitarCampos(selectElement, index) {
+    const productoSeleccionado = selectElement.value;
     const inputEstilo = document.getElementById(`inputEstilo-${index}`);
-    const labelLote = document.getElementById(`labelLote-${index}`);
-    const inputLote = document.getElementById(`inputLote-${index}`);
+    const inputLote = document.getElementById(`lote-${index}`);
     const checkboxLote = document.getElementById(`checkboxLote-${index}`);
 
-    if (select.value === "Cerveza") {
-        labelEstilo.style.display = "inline-block";
-        inputEstilo.style.display = "inline-block";
+    // Habilitar "Estilos" solo si la opción seleccionada es "Cerveza", de lo contrario, deshabilitar
+    inputEstilo.readOnly = (productoSeleccionado !== 'Cerveza');
 
-        // Nueva funcionalidad para mostrar Lote y checkbox
-        labelLote.style.display = "inline-block";
-        inputLote.style.display = "inline-block";
-        checkboxLote.style.display = "inline-block";
-    } else {
-        labelEstilo.style.display = "none";
-        inputEstilo.style.display = "none";
-
-        // Nueva funcionalidad para ocultar Lote y checkbox
-        labelLote.style.display = "none";
-        inputLote.style.display = "none";
-        checkboxLote.style.display = "none";
-    }
+    // Habilitar "Lote" y "CheckboxLote" solo si la opción seleccionada es "Cerveza", de lo contrario, deshabilitar
+    inputLote.disabled = checkboxLote.disabled = (productoSeleccionado !== 'Cerveza');
 }
 
 

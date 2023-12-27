@@ -18,42 +18,88 @@
   
   
 </head>
-<body>
+<body onload="mostrarCamposSegunTipo()">
   <form id="formulario" action="mailto">
     <div id="seccion1" class="seccion step active">
       <h2>Sección 1: Datos personales</h2>
-
+  
       <label for="nombre">Nombre:*</label>
       <input type="text" id="nombre" name="nombre" required><br>
-
+  
       <label for="apellido">Apellido:*</label>
       <input type="text" id="apellido" name="apellido" required><br>
-
-      <label for="provincia">Provincia:*</label>
-      <select id="provincia" name="provincia" required>
-        <option value="">Seleccionar</option>
-        <option value="Chaco">Chaco</option>
-        <option value="Santa Fe">Santa Fe</option>
-        <option value="Corrientes">Corrientes</option>
-        <option value="Formosa">Formosa</option>
+  
+      <label for="tipo_solicitud">Tipo Solicitud:*</label>
+      <select id="tipo_solicitud" name="tipo_solicitud" required onchange="mostrarCamposSegunTipo()">
+          <option value="Particular">Particular (para personas independientes)</option>
+          <option value="Corporativa">Corporativa (para personas que representan a un comercio)</option>
       </select><br>
-
-      <label for="localidad">Localidad:*</label>
-      <input type="text" id="localidad" name="localidad" required><br>
-
-      <label for="dni">DNI:*</label>
-      <input type="text" id="dni" name="dni" required><br>
-
+  
+      <!-- Campos para solicitud Particular -->
+      <div id="camposParticular" style="display: none;">
+          <label for="provincia">Provincia:*</label>
+          <select id="provincia" name="provincia" required>
+              <option value="">Seleccionar</option>
+              <option value="Chaco">Chaco</option>
+              <option value="Santa Fe">Santa Fe</option>
+              <option value="Corrientes">Corrientes</option>
+              <option value="Formosa">Formosa</option>
+          </select><br>
+  
+          <label for="localidad">Localidad:*</label>
+          <input type="text" id="localidad" name="localidad" required><br>
+  
+          <label for="dni">DNI:*</label>
+          <input type="text" id="dni" name="dni" required><br>
+      </div>
+  
+      <!-- Campos para solicitud Corporativa -->
+      <div id="camposCorporativa" style="display: none;">
+          <label for="nombre_empresa">Nombre de la empresa:*</label>
+          <input type="text" id="nombre_empresa" name="nombre_empresa" required><br>
+  
+          <label for="direccion">Dirección:*</label>
+          <input type="text" id="direccion" name="direccion" required><br>
+  
+          <label for="provincia_corporativa">Provincia:*</label>
+          <input type="text" id="provincia_corporativa" name="provincia_corporativa" required><br>
+  
+          <label for="localidad_corporativa">Localidad:*</label>
+          <input type="text" id="localidad_corporativa" name="localidad_corporativa" required><br>
+  
+          <label for="razon_social">Razón Social:*</label>
+          <input type="text" id="razon_social" name="razon_social" required><br>
+      </div>
+  
       <label for="telefono">Telefono:</label>
       <input type="text" id="telefono" name="telefono"><br>
-
+  
       <label for="cantidadProducto">Cantidad de productos: </label>
       <input id='cantidadProducto' type="number" min="1" max="5" value="1">
-
+  
       <div class="botones">
-        <button id="btnSiguiente1" type="button" onclick="nextStep(1)">Siguiente</button>
+          <button id="btnSiguiente1" type="button" onclick="nextStep(1)">Siguiente</button>
       </div>
-    </div>
+  </div>
+  
+  <script>
+      function mostrarCamposSegunTipo() {
+          const tipoSolicitud = document.getElementById('tipo_solicitud').value;
+          const camposParticular = document.getElementById('camposParticular');
+          const camposCorporativa = document.getElementById('camposCorporativa');
+  
+          // Oculta todos los campos
+          camposParticular.style.display = 'none';
+          camposCorporativa.style.display = 'none';
+  
+          // Muestra los campos según el tipo de solicitud seleccionada
+          if (tipoSolicitud === 'Particular') {
+              camposParticular.style.display = 'block';
+          } else if (tipoSolicitud === 'Corporativa') {
+              camposCorporativa.style.display = 'block';
+          }
+      }
+  </script>
 
     <div id="seccion2" class="seccion step seccion2">
       <h2>Sección 2: Datos de la muestra</h2>
